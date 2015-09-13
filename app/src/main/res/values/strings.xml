@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">House Valuation</string>
+
+    <string name="principal">Principal</string>
+    <string name="years">Years</string>
+    <string name="action_settings">Settings</string>
+    <string name="calculate_emi">Calculate EMI</string>
+    <string name="interest">Interest</string>
+    <string name="emi">Your EMI is 0</string>
+    <string name="generate_schedule">Generate Schedule</string>
+</resources>
