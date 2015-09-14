@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -55,13 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 Double.valueOf(((TextView) findViewById(R.id.interest)).getText().toString()) / 1200,
                 Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12
         );
-        exportFile("schedule.csv",house.getSchedule());
-        exportFile("taxschedule.csv",house.getYearly_schedule());
         ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + house.getEmi());
+        findViewById(R.id.export_schedule).setVisibility(View.VISIBLE);
     }
 
-    public void generateSchedule(View v) {
-        ((TextView) findViewById(R.id.emi)).setText(house.getYearly_schedule());
+    public void exportSchedule(View v) {
+        String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
+        exportFile(propertyName + "schedule.csv",house.getSchedule());
+        exportFile(propertyName + "tax_savings.csv",house.getYearly_schedule());
+        ((TextView) findViewById(R.id.export_message)).setText("The schedules have been exported to your downloads folder");
     }
 
 

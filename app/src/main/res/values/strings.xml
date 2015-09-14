@@ -7,5 +7,7 @@
     <string name="calculate_emi">Calculate EMI</string>
     <string name="interest">Interest</string>
     <string name="emi">Your EMI is 0</string>
-    <string name="generate_schedule">Generate Schedule</string>
+    <string name="export_schedule">Export Schedule</string>
+    <string name="property_name">Property Name</string>
+
 </resources>
