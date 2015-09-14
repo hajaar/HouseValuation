@@ -1,5 +1,6 @@
 package com.houseevaluation.kartikn.housevaluation;
 
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +12,9 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,10 +51,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void showEMI(View v) {
         house = new House(
-                            Double.valueOf(((TextView) findViewById(R.id.principal)).getText().toString()),
-                            Double.valueOf(((TextView) findViewById(R.id.interest)).getText().toString()) / 1200,
-                            Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12
-                            );
+                Double.valueOf(((TextView) findViewById(R.id.principal)).getText().toString()),
+                Double.valueOf(((TextView) findViewById(R.id.interest)).getText().toString()) / 1200,
+                Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12
+        );
+        exportFile("schedule.csv",house.getSchedule());
+        exportFile("taxschedule.csv",house.getYearly_schedule());
         ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + house.getEmi());
     }
 
@@ -58,4 +64,23 @@ public class MainActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.emi)).setText(house.getYearly_schedule());
     }
 
+
+    public void exportFile(String exportFile, String exportString) {
+        try {
+            File file = new File(Environment.getExternalStoragePublicDirectory(
+                    Environment.DIRECTORY_DOWNLOADS), "HouseEvaluation");
+            if (!file.mkdirs()) {
+                Log.e("file", "Directory not created");
+            }
+            String filename = file.toString() + "/" + exportFile;
+
+            FileWriter fw = new FileWriter(filename);
+            fw.write(exportString);
+            fw.flush();
+            fw.close();
+        }
+        catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
+    }
 }
