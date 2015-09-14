@@ -24,12 +24,14 @@ public class House {
     private int start_month = 5;
     private double first_rent = 15000;
     private double rent_increase = 0.05;
+    private int occupation_status=0;
+    static final double self_occupied_max_interest = 200000;
 
-
-    public House(double principal, double monthly_interest, double months) {
+    public House(double principal, double monthly_interest, double months, int occupation_status) {
         this.principal = principal;
         this.monthly_interest = monthly_interest;
         this.months = months;
+        this.occupation_status = occupation_status;
         setEmi();
         createSchedule();
         calculateTaxAndOutflow();
@@ -73,6 +75,12 @@ public class House {
             schedule += op_bal + " , " + temp_int + " , " + temp_principal + "\n";
             op_bal = op_bal -temp_principal;
             if (j%12 ==0 ) {
+                if (occupation_status == 0) {
+                    if (temp_yrly_int > self_occupied_max_interest) {
+                        temp_yrly_int = self_occupied_max_interest;
+                    }
+
+                }
                 yearly_interest_component.add(temp_yrly_int);
                 yearly_principal_component.add(temp_yrly_principal);
                 j =0;
@@ -87,6 +95,9 @@ public class House {
         double temp_yrly_rent = 0;
         int j = start_month;
         int k = 0;
+        if (occupation_status == 0) {
+            first_rent = 0.0;
+        }
         for (int i=0;i<months;i++) {
             temp_yrly_rent += first_rent;
             if (j%12 ==0 ) {
@@ -105,7 +116,8 @@ public class House {
         setRent();
         for (int i=0;i<months;i++) {
             if (j%12 ==0 ) {
-                yearly_tax_savings.add((double)Math.round((-yearly_rent.get(k)*.7+yearly_interest_component.get(k))*.309*100)/100);
+                yearly_tax_savings.add((double) Math.round((-yearly_rent.get(k) * .7 + yearly_interest_component.get(k)) * .309 * 100) / 100);
+
                 total_outflow.add(yearly_rent.get(k)+yearly_tax_savings.get(k)-yearly_interest_component.get(k)-yearly_principal_component.get(k));
                 yearly_schedule += yearly_interest_component.get(k) + " , " + yearly_principal_component.get(k) + " , " + yearly_rent.get(k) + " , " + yearly_tax_savings.get(k) + " , " + total_outflow.get(k) + "\n";
                 j =0;

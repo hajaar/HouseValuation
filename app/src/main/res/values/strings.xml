@@ -10,4 +10,11 @@
     <string name="export_schedule">Export Schedule</string>
     <string name="property_name">Property Name</string>
 
+    <string-array name="occupationstatus">
+        <item>Self-occupied</item>
+        <item>Rented Out</item>
+    </string-array>
+
+
+
 </resources>
