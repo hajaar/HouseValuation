@@ -115,14 +115,22 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
         <Spinner
             android:id="@+id/occupation_status"
-            android:layout_width="wrap_content"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/loan_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="selectDate"
+            android:text="Click to Select Date"/>
+
 
     </LinearLayout>
 

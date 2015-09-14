@@ -1,6 +1,7 @@
 package com.houseevaluation.kartikn.housevaluation;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -72,6 +73,11 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void selectDate(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getFragmentManager(),"datePicker");
+    }
+
     public void showEMI(View v) {
         house = new House(
                 Double.valueOf(((TextView) findViewById(R.id.principal)).getText().toString()),
@@ -79,8 +85,6 @@ public class MainActivity extends AppCompatActivity {
                 Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12,
                 sid
         );
-        Toast.makeText(getApplicationContext(), "this is my Toast message "  + sid ,
-                Toast.LENGTH_LONG).show();
         ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + house.getEmi());
         findViewById(R.id.export_schedule).setVisibility(View.VISIBLE);
     }
@@ -110,3 +114,5 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
+
+
