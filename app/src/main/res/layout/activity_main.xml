@@ -25,7 +25,8 @@
             android:id="@+id/property_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:text="wooo" />
 
     </LinearLayout>
 
@@ -46,8 +47,9 @@
             android:id="@+id/principal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numeric="decimal"
-            android:padding="8dp" />
+            android:inputType="number"
+            android:padding="8dp"
+            android:text="6318000" />
 
     </LinearLayout>
 
@@ -67,8 +69,9 @@
             android:id="@+id/years"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numeric="integer"
-            android:padding="8dp" />
+            android:inputType="number"
+            android:padding="8dp"
+            android:text="20" />
 
 
     </LinearLayout>
@@ -89,8 +92,9 @@
             android:id="@+id/interest"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numeric="decimal"
-            android:padding="8dp" />
+            android:inputType="numberDecimal"
+            android:padding="8dp"
+            android:text="9.85" />
 
     </LinearLayout>
 

@@ -1,27 +1,20 @@
 package com.houseevaluation.kartikn.housevaluation;
 
-import android.app.Activity;
 import android.app.DialogFragment;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -92,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public void exportSchedule(View v) {
         String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
         exportFile(propertyName + "schedule.csv",house.getSchedule());
-        exportFile(propertyName + "tax_savings.csv",house.getYearly_schedule());
+//        exportFile(propertyName + "tax_savings.csv",house.getYearly_schedule());
         ((TextView) findViewById(R.id.export_message)).setText("The schedules have been exported to your downloads folder");
     }
 
@@ -100,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     public void exportFile(String exportFile, String exportString) {
         try {
             File file = new File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS), "HouseEvaluation");
+                    Environment.DIRECTORY_DOWNLOADS), "HouseValuation");
 
             String filename = file.toString() + "/" + exportFile;
 
