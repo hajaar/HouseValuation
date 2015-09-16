@@ -5,7 +5,8 @@ package com.houseevaluation.kartikn.housevaluation;
  */
 public class MonthlyLedger {
 
-    private int year;
+    private int financial_year;
+    private int calendar_year;
     private int month;
     private int month_id;
     private double opening_balance;
@@ -15,9 +16,14 @@ public class MonthlyLedger {
     private char tax_status;
     private double rent_collected;
 
-    public MonthlyLedger(int month_id, int month, int year, double opening_balance, double principal_paid, double interest_paid) {
-        this.year = year;
+    public MonthlyLedger(int month_id, int month, int financial_year, double opening_balance, double principal_paid, double interest_paid) {
+        this.financial_year = financial_year;
         this.month = month;
+        if (month < 3) {
+            calendar_year = financial_year + 1;
+        } else {
+            calendar_year = financial_year;
+        }
         this.month_id = month_id;
         this.opening_balance = opening_balance;
         this.principal_paid = principal_paid;
@@ -28,6 +34,10 @@ public class MonthlyLedger {
 
     }
 
+    public int getCalendar_year() {
+        return calendar_year;
+    }
+
     public char getTax_status() {
         return tax_status;
     }
@@ -36,12 +46,12 @@ public class MonthlyLedger {
         this.tax_status = tax_status;
     }
 
-    public int getYear() {
-        return year;
+    public int getFinancial_year() {
+        return financial_year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setFinancial_year(int financial_year) {
+        this.financial_year = financial_year;
     }
 
     public int getMonth() {

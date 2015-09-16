@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,11 +34,11 @@ public class MainActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year_x = year;
             loan_year = year;
-            month_x = monthOfYear + 1;
+            month_x = monthOfYear;
             loan_month = monthOfYear;
             day_x = dayOfMonth;
             Button btn1 = (Button) findViewById(R.id.loan_button);
-            btn1.setText(year_x + "/" + month_x + "/" + day_x);
+            btn1.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
         }
     };
     private DatePickerDialog.OnDateSetListener dpickerListener2
@@ -46,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year_x = year;
             handover_year = year;
-            month_x = monthOfYear + 1;
+            month_x = monthOfYear;
             handover_month = monthOfYear;
             day_x = dayOfMonth;
             Button btn2 = (Button) findViewById(R.id.handover_button);
-            btn2.setText(year_x + "/" + month_x + "/" + day_x);
+            btn2.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
         }
     };
     private DatePickerDialog.OnDateSetListener dpickerListener3
@@ -59,11 +60,11 @@ public class MainActivity extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
             year_x = year;
             rent_year = year;
-            month_x = monthOfYear + 1;
+            month_x = monthOfYear;
             rent_month = monthOfYear;
             day_x = dayOfMonth;
             Button btn3 = (Button) findViewById(R.id.rent_button);
-            btn3.setText(year_x + "/" + month_x + "/" + day_x);
+            btn3.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
         }
     };
 
@@ -76,16 +77,21 @@ public class MainActivity extends AppCompatActivity {
         month_x = cal.get(Calendar.MONTH);
         day_x = cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnButtonClick();
-
     }
 
     public void showDialogOnButtonClick() {
         Button btn1 = (Button) findViewById(R.id.loan_button);
         Button btn2 = (Button) findViewById(R.id.handover_button);
         Button btn3 = (Button) findViewById(R.id.rent_button);
-        btn1.setText(day_x + "/" + month_x + "/" + year_x);
-        btn2.setText(day_x + "/" + month_x + "/" + year_x);
-        btn3.setText(day_x + "/" + month_x + "/" + year_x);
+        btn1.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
+        btn2.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
+        btn3.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
+        loan_year = year_x;
+        handover_year = year_x;
+        rent_year = year_x;
+        loan_month = month_x;
+        handover_month = month_x;
+        rent_month = month_x;
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,6 +163,7 @@ public class MainActivity extends AppCompatActivity {
         house.setSelf_occupied(self_occupied);
         house.setLoan_start_month(loan_month);
         house.setLoan_start_year(loan_year);
+        Log.d("exportSchedule", "Loan Year " + loan_year);
         house.setHandover_month(handover_month);
         house.setHandover_year(handover_year);
         if (house.isSelf_occupied()) {
@@ -170,9 +177,9 @@ public class MainActivity extends AppCompatActivity {
         }
         house.createSchedule();
         house.setRent();
-        exportFile(propertyName + "schedule.csv", house.getSchedule());
-        exportFile(propertyName + "tax_savings.csv", house.getYearly_schedule());
-        Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG);
+        exportFile("monthly_schedule_" + propertyName + ".txt", house.getSchedule());
+        exportFile("yearly_schedule_" + propertyName + ".csv", house.getYearly_schedule());
+        Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG).show();
     }
 
 
@@ -191,6 +198,11 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    private String getMonthName(int month) {
+        String Months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        return Months[month];
     }
 }
 

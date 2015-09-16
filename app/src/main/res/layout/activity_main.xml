@@ -38,45 +38,51 @@
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:padding="4dp"
             android:text="@string/principal" />
 
         <EditText
             android:id="@+id/principal"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="3"
             android:inputType="number"
             android:padding="8dp"
             android:text="6318000" />
 
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:padding="4dp"
             android:text="@string/years" />
 
         <EditText
             android:id="@+id/years"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:inputType="number"
             android:padding="8dp"
             android:text="20" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:padding="4dp"
             android:text="@string/interest" />
 
 
         <EditText
             android:id="@+id/interest"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:inputType="numberDecimal"
             android:padding="8dp"
             android:text="9.85" />
@@ -197,7 +203,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:text="@string/expected_rent_increase" />
 
         <EditText
@@ -210,8 +216,8 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="%" />
+            android:layout_weight="2"
+            android:text="% Annually" />
 
     </LinearLayout>
 

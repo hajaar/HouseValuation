@@ -1,11 +1,11 @@
 <resources>
     <string name="app_name">House Valuation</string>
 
-    <string name="principal">Principal</string>
-    <string name="years">Years</string>
+    <string name="principal">The Loan is Rs.</string>
+    <string name="years">for </string>
     <string name="action_settings">Settings</string>
     <string name="calculate_emi">Calculate EMI</string>
-    <string name="interest">Interest</string>
+    <string name="interest">Years @</string>
     <string name="emi">Your EMI is 0</string>
     <string name="export_schedule">Export Schedule</string>
     <string name="property_name">What Is The Name Of Your House?</string>
@@ -13,7 +13,7 @@
     <string name="handover_date">Handover Is Expected On</string>
     <string name="rent_date">You Will Rent It Out On</string>
     <string name="starting_rent">For Rs. </string>
-    <string name="expected_rent_increase">Wirh An Annual Increase Of</string>
+    <string name="expected_rent_increase">Increasing @</string>
     <string name="rent_message">Will You Be Renting Out Your House?</string>
 
     <string-array name="months">

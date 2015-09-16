@@ -5,9 +5,7 @@ package com.houseevaluation.kartikn.housevaluation;
  */
 public class YearlyLedger {
 
-    private int year;
-
-
+    private int financial_year;
     private int year_id;
     private double yearly_interest;
     private double yearly_principal;
@@ -17,8 +15,8 @@ public class YearlyLedger {
     private double total_outflow;
 
 
-    public YearlyLedger(int year_id, int year, double yearly_interest, double yearly_principal) {
-        this.year = year;
+    public YearlyLedger(int year_id, int financial_year, double yearly_interest, double yearly_principal) {
+        this.financial_year = financial_year;
         this.year_id = year_id;
         this.yearly_interest = yearly_interest;
         this.yearly_principal = yearly_principal;
@@ -36,12 +34,12 @@ public class YearlyLedger {
         this.tax_status = tax_status;
     }
 
-    public int getYear() {
-        return year;
+    public int getFinancial_year() {
+        return financial_year;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setFinancial_year(int financial_year) {
+        this.financial_year = financial_year;
     }
 
     public double getYearly_interest() {

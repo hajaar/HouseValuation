@@ -3,6 +3,7 @@ package com.houseevaluation.kartikn.housevaluation;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by kartikn on 13-09-2015.
@@ -16,14 +17,15 @@ public class House {
     private double monthly_interest = 0;
     private double months = 0;
     private double emi = 0;
-    private String schedule = "ID, Month, Year, Op Bal , Principal Paid, Interest Paid, Closing Balance, Rent, Tax Status \n";
-    private String yearly_schedule = "ID, Year,  Principal , Interest ,Tax Status, Rent , Tax Saving, Total Outflow \n";
+    private String schedule = "ID, Month, Cal.Year, Fin. Year, Op Bal , Principal Paid, Interest Paid, Closing Balance, Rent, Tax Status \n";
+    private String yearly_schedule = "ID, Fin. Year,  Principal , Interest ,Tax Status, Rent , Tax Saving, Total Outflow \n";
     private int loan_start_month;
     private int loan_start_year;
     private int handover_month;
     private int handover_year;
     private int rent_start_month;
     private int rent_start_year;
+    private int financial_month;
     private double first_rent;
     private double rent_increase;
     private boolean self_occupied;
@@ -126,16 +128,21 @@ public class House {
         double temp_yrly_principal = 0;
         int current_month = loan_start_month;
         int current_year = loan_start_year;
+        if (current_month <= 2) {
+            financial_month = 10 + current_month;
+        } else {
+            financial_month = 2 - current_month;
+        }
 
-        for (int i = current_month; i < current_month + months; i++) {
+        for (int i = 0; i < months; i++) {
             temp_int = Math.round(op_bal * monthly_interest * 100) / 100;
             temp_yrly_int += temp_int;
             temp_principal = emi - temp_int;
             temp_yrly_principal += temp_principal;
-            MonthlyLedger monthlyLedger = new MonthlyLedger(i - current_month, i % 12, current_year, op_bal, temp_principal, temp_int);
+            MonthlyLedger monthlyLedger = new MonthlyLedger(i, (i + current_month) % 12, current_year, op_bal, temp_principal, temp_int);
             monthlyLedgers.add(monthlyLedger);
             op_bal = op_bal - temp_principal;
-            if ((i + 1) % 12 == 0) {
+            if ((i + financial_month) % 12 == 0) {
                 YearlyLedger yearlyLedger = new YearlyLedger(current_year - loan_start_year, current_year, temp_yrly_int, temp_yrly_principal);
                 yearlyLedgers.add(yearlyLedger);
                 current_year += 1;
@@ -148,6 +155,7 @@ public class House {
     public void setRent() {
         double temp_yrly_rent = 0;
         double temp_mthly_rent = 0;
+        double current_rent = first_rent;
         int delta_between_loan_and_handover = getID(loan_start_month, loan_start_year, handover_month, handover_year);
         int delta_between_handover_and_rent = getID(handover_month, handover_year, rent_start_month, rent_start_year);
         Log.d("setRent", "delta_between_handover_and_rent " + delta_between_handover_and_rent);
@@ -158,26 +166,30 @@ public class House {
                 monthlyLedgers.get(i).setTax_status('C');
                 temp_yrly_status = 'C';
             } else {
-                if (i >= delta_between_handover_and_rent && i < (delta_between_loan_and_handover + delta_between_handover_and_rent)) {
-                    monthlyLedgers.get(i).setTax_status('H');
-                    temp_yrly_status = 'H';
-                } else {
                     if (self_occupied) {
                         monthlyLedgers.get(i).setTax_status('S');
                         temp_yrly_status = 'S';
                     } else {
                         monthlyLedgers.get(i).setTax_status('R');
                         temp_yrly_status = 'R';
-                        temp_mthly_rent = first_rent;
+                        if (i < (delta_between_handover_and_rent + delta_between_loan_and_handover)) {
+                            temp_mthly_rent = 0;
+                        } else {
+                            temp_mthly_rent = current_rent;
+                        }
+
                     }
                 }
-            }
-            monthlyLedgers.get(i).setRent_collected(temp_mthly_rent);
+            monthlyLedgers.get(i).setRent_collected(Math.round(temp_mthly_rent));
             temp_yrly_rent += temp_mthly_rent;
-            if ((i + 1) % 12 == 0) {
-                yearlyLedgers.get(getYearID(i)).setYearly_rent((double) Math.round(temp_yrly_rent * Math.pow(1 + rent_increase, getYearID(i)) * 100) / 100);
+            if ((i + financial_month) % 12 == 0) {
+                yearlyLedgers.get(getYearID(i)).setYearly_rent(temp_yrly_rent);
                 yearlyLedgers.get(getYearID(i)).setTax_status(temp_yrly_status);
                 temp_yrly_rent = 0;
+
+                if (temp_yrly_status == 'R') {
+                    current_rent = current_rent * (1 + rent_increase);
+                }
             }
             temp_mthly_rent = 0;
         }
@@ -199,7 +211,7 @@ public class House {
                 tmp_tax_saving = 0;
                 construction_interest += i.getYearly_interest();
             }
-            if ((tmp_tax_status == 'H') || (tmp_tax_status == 'S')) {
+            if (tmp_tax_status == 'S') {
                 tmp_tax_saving = i.getYearly_interest();
                 if (counter < 5) {
                     tmp_tax_saving += construction_interest / 5;
@@ -228,11 +240,18 @@ public class House {
         return ID / 12;
     }
 
+    private String getMonthName(int month) {
+        String Months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        return Months[month];
+    }
+
     private void exportSchedule() {
+        Calendar cal = Calendar.getInstance();
         for (MonthlyLedger i : monthlyLedgers) {
             schedule += (i.getMonth_id() + 1) + "," +
-                    i.getMonth() + "," +
-                    i.getYear() + "," +
+                    getMonthName(i.getMonth()) + "," +
+                    i.getCalendar_year() + "," +
+                    i.getFinancial_year() + "," +
                     i.getOpening_balance() + "," +
                     i.getPrincipal_paid() + "," +
                     i.getInterest_paid() + "," +
@@ -245,7 +264,7 @@ public class House {
     private void exportYearlySchedule() {
         for (YearlyLedger i : yearlyLedgers) {
             yearly_schedule += (i.getYear_id() + 1) + "," +
-                    i.getYear() + "," +
+                    i.getFinancial_year() + "," +
                     i.getYearly_principal() + "," +
                     i.getYearly_interest() + "," +
                     i.getTax_status() + "," +
