@@ -8,12 +8,13 @@
     <string name="interest">Interest</string>
     <string name="emi">Your EMI is 0</string>
     <string name="export_schedule">Export Schedule</string>
-    <string name="property_name">Property Name</string>
-    <string name="loan_date"> Loan Start Month and Year</string>
-    <string name="handover_date">Handover Month and Year</string>
-    <string name="rent_date">Rental Month and Year</string>
-    <string name="starting_rent">Starting Rent</string>
-    <string name="expected_rent_increase">Annual Increase</string>
+    <string name="property_name">What Is The Name Of Your House?</string>
+    <string name="loan_date"> Your Loan Starts On</string>
+    <string name="handover_date">Handover Is Expected On</string>
+    <string name="rent_date">You Will Rent It Out On</string>
+    <string name="starting_rent">For Rs. </string>
+    <string name="expected_rent_increase">Wirh An Annual Increase Of</string>
+    <string name="rent_message">Will You Be Renting Out Your House?</string>
 
     <string-array name="months">
         <item>Jan</item>

@@ -1,15 +1,16 @@
 package com.houseevaluation.kartikn.housevaluation;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -17,56 +18,105 @@ import android.widget.ToggleButton;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final int DIALOG_ID1 = 0;
+    static final int DIALOG_ID2 = 1;
+    static final int DIALOG_ID3 = 2;
     private House house;
-
-    private int loan_month, handover_month, rent_month = 0;
+    private int year_x, month_x, day_x, loan_month, loan_year, handover_month, handover_year, rent_month, rent_year;
+    private DatePickerDialog.OnDateSetListener dpickerListener1
+            = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            year_x = year;
+            loan_year = year;
+            month_x = monthOfYear + 1;
+            loan_month = monthOfYear;
+            day_x = dayOfMonth;
+            Button btn1 = (Button) findViewById(R.id.loan_button);
+            btn1.setText(year_x + "/" + month_x + "/" + day_x);
+        }
+    };
+    private DatePickerDialog.OnDateSetListener dpickerListener2
+            = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            year_x = year;
+            handover_year = year;
+            month_x = monthOfYear + 1;
+            handover_month = monthOfYear;
+            day_x = dayOfMonth;
+            Button btn2 = (Button) findViewById(R.id.handover_button);
+            btn2.setText(year_x + "/" + month_x + "/" + day_x);
+        }
+    };
+    private DatePickerDialog.OnDateSetListener dpickerListener3
+            = new DatePickerDialog.OnDateSetListener() {
+        @Override
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+            year_x = year;
+            rent_year = year;
+            month_x = monthOfYear + 1;
+            rent_month = monthOfYear;
+            day_x = dayOfMonth;
+            Button btn3 = (Button) findViewById(R.id.rent_button);
+            btn3.setText(year_x + "/" + month_x + "/" + day_x);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final Spinner loan_spinner = (Spinner) findViewById(R.id.loan_month);
-        final Spinner handover_spinner = (Spinner) findViewById(R.id.handover_month);
-        final Spinner rent_spinner = (Spinner) findViewById(R.id.rent_month);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.months, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        loan_spinner.setAdapter(adapter);
-        handover_spinner.setAdapter(adapter);
-        rent_spinner.setAdapter(adapter);
-        loan_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                loan_month = loan_spinner.getSelectedItemPosition();
-            }
+        Calendar cal = Calendar.getInstance();
+        year_x = cal.get(Calendar.YEAR);
+        month_x = cal.get(Calendar.MONTH);
+        day_x = cal.get(Calendar.DAY_OF_MONTH);
+        showDialogOnButtonClick();
 
+    }
+
+    public void showDialogOnButtonClick() {
+        Button btn1 = (Button) findViewById(R.id.loan_button);
+        Button btn2 = (Button) findViewById(R.id.handover_button);
+        Button btn3 = (Button) findViewById(R.id.rent_button);
+        btn1.setText(day_x + "/" + month_x + "/" + year_x);
+        btn2.setText(day_x + "/" + month_x + "/" + year_x);
+        btn3.setText(day_x + "/" + month_x + "/" + year_x);
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onClick(View v) {
+                showDialog(DIALOG_ID1);
             }
         });
-        handover_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        btn2.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                handover_month = handover_spinner.getSelectedItemPosition();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onClick(View v) {
+                showDialog(DIALOG_ID2);
             }
         });
-        rent_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        btn3.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                rent_month = rent_spinner.getSelectedItemPosition();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+            public void onClick(View v) {
+                showDialog(DIALOG_ID3);
             }
         });
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case DIALOG_ID1:
+                return new DatePickerDialog(this, dpickerListener1, year_x, month_x, day_x);
+            case DIALOG_ID2:
+                return new DatePickerDialog(this, dpickerListener2, year_x, month_x, day_x);
+            case DIALOG_ID3:
+                return new DatePickerDialog(this, dpickerListener3, year_x, month_x, day_x);
+        }
+        return null;
     }
 
     @Override
@@ -106,15 +156,15 @@ public class MainActivity extends AppCompatActivity {
         boolean self_occupied = ((ToggleButton) findViewById(R.id.self_occupied)).isChecked();
         house.setSelf_occupied(self_occupied);
         house.setLoan_start_month(loan_month);
-        house.setLoan_start_year(Integer.valueOf(((EditText) findViewById(R.id.loan_year)).getText().toString()));
+        house.setLoan_start_year(loan_year);
         house.setHandover_month(handover_month);
-        house.setHandover_year(Integer.valueOf(((EditText) findViewById(R.id.handover_year)).getText().toString()));
+        house.setHandover_year(handover_year);
         if (house.isSelf_occupied()) {
             house.setRent_start_month(handover_month);
-            house.setRent_start_year(Integer.valueOf(((EditText) findViewById(R.id.handover_year)).getText().toString()));
+            house.setRent_start_year(handover_year);
         } else {
             house.setRent_start_month(rent_month);
-            house.setRent_start_year(Integer.valueOf(((EditText) findViewById(R.id.rent_year)).getText().toString()));
+            house.setRent_start_year(rent_year);
             house.setFirst_rent(Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString()));
             house.setRent_increase(Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100);
         }
