@@ -40,7 +40,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="4dp"
             android:text="@string/principal" />
 
         <EditText
@@ -51,18 +51,11 @@
             android:padding="8dp"
             android:text="6318000" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="4dp"
             android:text="@string/years" />
 
         <EditText
@@ -73,18 +66,10 @@
             android:padding="8dp"
             android:text="20" />
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="4dp"
             android:text="@string/interest" />
 
 
@@ -96,7 +81,13 @@
             android:padding="8dp"
             android:text="9.85" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="%" />
+
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -118,20 +109,10 @@
             android:text="@string/emi" />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
-        <ToggleButton
 
-            android:id="@+id/self_occupied"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="Self-occupied"
-            android:textOn="Rented Out" />
 
-    </LinearLayout>
+
 
 
     <LinearLayout
@@ -139,19 +120,112 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/loan_date" />
+
+        <Spinner
+            android:id="@+id/loan_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/loan_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/handover_date" />
+
+        <Spinner
+            android:id="@+id/handover_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/handover_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <ToggleButton
+
+        android:id="@+id/self_occupied"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOff="Rented Out"
+        android:textOn="Self-occupied" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rent_date" />
+
+        <Spinner
+            android:id="@+id/rent_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/rent_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/starting_rent" />
+
+        <EditText
+            android:id="@+id/first_rent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15000" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/expected_rent_increase" />
+
+        <EditText
+            android:id="@+id/rent_increase"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="%" />
+
+    </LinearLayout>
+
+    <Button
             android:id="@+id/export_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="exportSchedule"
-            android:text="@string/export_schedule"
-            android:visibility="invisible"/>
+            android:text="@string/export_schedule" />
 
-        <TextView
-            android:id="@+id/export_message"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="8dp" />
-    </LinearLayout>
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package com.houseevaluation.kartikn.housevaluation;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 /**
@@ -16,14 +18,14 @@ public class House {
     private double emi = 0;
     private String schedule = "ID, Month, Year, Op Bal , Principal Paid, Interest Paid, Closing Balance, Rent, Tax Status \n";
     private String yearly_schedule = "ID, Year,  Principal , Interest ,Tax Status, Rent , Tax Saving, Total Outflow \n";
-    private int loan_start_month = 9;
-    private int loan_start_year = 2014;
-    private int handover_month = 10;
-    private int handover_year = 2015;
-    private int rent_start_month = 5;
-    private int rent_start_year = 2016;
-    private double first_rent = 15000;
-    private double rent_increase = 0.05;
+    private int loan_start_month;
+    private int loan_start_year;
+    private int handover_month;
+    private int handover_year;
+    private int rent_start_month;
+    private int rent_start_year;
+    private double first_rent;
+    private double rent_increase;
     private boolean self_occupied;
     private ArrayList<MonthlyLedger> monthlyLedgers = new ArrayList<>();
     private ArrayList<YearlyLedger> yearlyLedgers = new ArrayList<>();
@@ -34,6 +36,70 @@ public class House {
         this.months = months;
         this.self_occupied = true;
         setEmi();
+    }
+
+    public void setFirst_rent(double first_rent) {
+        this.first_rent = first_rent;
+    }
+
+    public void setRent_increase(double rent_increase) {
+        this.rent_increase = rent_increase;
+    }
+
+    public boolean isSelf_occupied() {
+        return self_occupied;
+    }
+
+    public void setSelf_occupied(boolean self_occupied) {
+        this.self_occupied = self_occupied;
+    }
+
+    public int getLoan_start_year() {
+        return loan_start_year;
+    }
+
+    public void setLoan_start_year(int loan_start_year) {
+        this.loan_start_year = loan_start_year;
+    }
+
+    public int getHandover_month() {
+        return handover_month;
+    }
+
+    public void setHandover_month(int handover_month) {
+        this.handover_month = handover_month;
+    }
+
+    public int getHandover_year() {
+        return handover_year;
+    }
+
+    public void setHandover_year(int handover_year) {
+        this.handover_year = handover_year;
+    }
+
+    public int getRent_start_month() {
+        return rent_start_month;
+    }
+
+    public void setRent_start_month(int rent_start_month) {
+        this.rent_start_month = rent_start_month;
+    }
+
+    public int getRent_start_year() {
+        return rent_start_year;
+    }
+
+    public void setRent_start_year(int rent_start_year) {
+        this.rent_start_year = rent_start_year;
+    }
+
+    public int getLoan_start_month() {
+        return loan_start_month;
+    }
+
+    public void setLoan_start_month(int loan_start_month) {
+        this.loan_start_month = loan_start_month;
     }
 
     public double getEmi() {
@@ -51,11 +117,6 @@ public class House {
     public String getYearly_schedule() {
         return yearly_schedule;
     }
-
-    public void setSelf_occupied(boolean self_occupied) {
-        this.self_occupied = self_occupied;
-    }
-
 
     public void createSchedule() {
         double op_bal = principal;
@@ -89,9 +150,10 @@ public class House {
         double temp_mthly_rent = 0;
         int delta_between_loan_and_handover = getID(loan_start_month, loan_start_year, handover_month, handover_year);
         int delta_between_handover_and_rent = getID(handover_month, handover_year, rent_start_month, rent_start_year);
+        Log.d("setRent", "delta_between_handover_and_rent " + delta_between_handover_and_rent);
+        Log.d("setRent", "delta_between_loan_and_handover " + delta_between_loan_and_handover);
         char temp_yrly_status = 'C';
         for (int i = 0; i < months; i++) {
-            monthlyLedgers.get(i).setRent_collected(0);
             if (i < delta_between_loan_and_handover) {
                 monthlyLedgers.get(i).setTax_status('C');
                 temp_yrly_status = 'C';
@@ -122,7 +184,7 @@ public class House {
         calculateTaxAndOutflow();
         exportSchedule();
         exportYearlySchedule();
-        }
+    }
 
 
     private void calculateTaxAndOutflow() {
