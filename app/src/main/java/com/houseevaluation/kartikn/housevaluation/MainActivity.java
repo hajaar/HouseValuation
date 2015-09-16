@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.io.File;
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         house.setRent();
         exportFile(propertyName + "schedule.csv", house.getSchedule());
         exportFile(propertyName + "tax_savings.csv", house.getYearly_schedule());
-        ((TextView) findViewById(R.id.export_message)).setText("The schedules have been exported to your downloads folder");
+        Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG);
     }
 
 
