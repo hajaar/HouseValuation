@@ -23,6 +23,8 @@ public class MonthlyLedger {
         this.principal_paid = principal_paid;
         this.interest_paid = interest_paid;
         this.closing_balance = opening_balance - principal_paid;
+        this.rent_collected = 0;
+        this.tax_status = 'C';
 
     }
 

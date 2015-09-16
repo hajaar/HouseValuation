@@ -16,11 +16,16 @@ public class YearlyLedger {
     private double tax_saving;
     private double total_outflow;
 
-    public YearlyLedger(int year, int year_id, double yearly_interest, double yearly_principal) {
+
+    public YearlyLedger(int year_id, int year, double yearly_interest, double yearly_principal) {
         this.year = year;
         this.year_id = year_id;
         this.yearly_interest = yearly_interest;
         this.yearly_principal = yearly_principal;
+        this.yearly_rent = 0;
+        this.tax_status = 'C';
+        this.tax_saving = 0;
+        this.total_outflow = 0;
     }
 
     public char getTax_status() {
@@ -75,8 +80,9 @@ public class YearlyLedger {
         return total_outflow;
     }
 
-    public void setTotal_outflow(double total_outflow) {
-        this.total_outflow = total_outflow;
+    public void setTotal_outflow() {
+
+        total_outflow = tax_saving + yearly_rent - yearly_principal - yearly_interest;
     }
 
     public int getYear_id() {
@@ -86,7 +92,6 @@ public class YearlyLedger {
     public void setYear_id(int year_id) {
         this.year_id = year_id;
     }
-
 
 }
 

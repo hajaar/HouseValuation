@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     public void exportSchedule(View v) {
         String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
         exportFile(propertyName + "schedule.csv",house.getSchedule());
-//        exportFile(propertyName + "tax_savings.csv",house.getYearly_schedule());
+        exportFile(propertyName + "tax_savings.csv", house.getYearly_schedule());
         ((TextView) findViewById(R.id.export_message)).setText("The schedules have been exported to your downloads folder");
     }
 
