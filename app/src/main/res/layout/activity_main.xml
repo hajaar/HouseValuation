@@ -123,18 +123,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Spinner
-            android:id="@+id/occupation_status"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"/>
+        <ToggleButton
 
-        <Button
-            android:id="@+id/loan_start_date"
+            android:id="@+id/self_occupied"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="selectDate"
-            android:text="Click to Select Date"/>
-
+            android:textOff="Self-occupied"
+            android:textOn="Rented Out" />
 
     </LinearLayout>
 

@@ -24,19 +24,16 @@ public class House {
     private int rent_start_year = 2016;
     private double first_rent = 15000;
     private double rent_increase = 0.05;
-    private int occupation_status = 0;
+    private boolean self_occupied;
     private ArrayList<MonthlyLedger> monthlyLedgers = new ArrayList<>();
     private ArrayList<YearlyLedger> yearlyLedgers = new ArrayList<>();
 
-    public House(double principal, double monthly_interest, double months, int occupation_status) {
+    public House(double principal, double monthly_interest, double months) {
         this.principal = principal;
         this.monthly_interest = monthly_interest;
         this.months = months;
-        this.occupation_status = occupation_status;
+        this.self_occupied = true;
         setEmi();
-        createSchedule();
-        setRent();
-
     }
 
     public double getEmi() {
@@ -54,6 +51,11 @@ public class House {
     public String getYearly_schedule() {
         return yearly_schedule;
     }
+
+    public void setSelf_occupied(boolean self_occupied) {
+        this.self_occupied = self_occupied;
+    }
+
 
     public void createSchedule() {
         double op_bal = principal;
@@ -98,7 +100,7 @@ public class House {
                     monthlyLedgers.get(i).setTax_status('H');
                     temp_yrly_status = 'H';
                 } else {
-                    if (occupation_status == 0) {
+                    if (self_occupied) {
                         monthlyLedgers.get(i).setTax_status('S');
                         temp_yrly_status = 'S';
                     } else {
