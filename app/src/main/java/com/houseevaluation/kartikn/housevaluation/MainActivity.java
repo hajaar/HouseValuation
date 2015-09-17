@@ -22,7 +22,10 @@ import android.widget.ToggleButton;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -247,34 +250,42 @@ public class MainActivity extends AppCompatActivity {
     public void exportSchedule(View v) {
         String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
         boolean self_occupied = ((ToggleButton) findViewById(R.id.self_occupied)).isChecked();
-        house.setSelf_occupied(self_occupied);
-        house.setLoan_start_month(loan_month);
-        house.setLoan_start_year(loan_year);
-        Log.d("exportSchedule", "Loan Year " + loan_year);
-        house.setHandover_month(handover_month);
-        house.setHandover_year(handover_year);
-        if (house.isSelf_occupied()) {
-            house.setRent_start_month(handover_month);
-            house.setRent_start_year(handover_year);
+        if (isDateSmaller(loan_month, loan_year, handover_month, handover_year)) {
+            if (self_occupied || isDateSmaller(handover_month, handover_year, rent_month, rent_year)) {
+                house.setSelf_occupied(self_occupied);
+                house.setLoan_start_month(loan_month);
+                house.setLoan_start_year(loan_year);
+                Log.d("exportSchedule", "Loan Year " + loan_year);
+                house.setHandover_month(handover_month);
+                house.setHandover_year(handover_year);
+                if (house.isSelf_occupied()) {
+                    house.setRent_start_month(handover_month);
+                    house.setRent_start_year(handover_year);
+                } else {
+                    house.setRent_start_month(rent_month);
+                    house.setRent_start_year(rent_year);
+                    house.setFirst_rent(Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString()));
+                    house.setRent_increase(Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100);
+                }
+                house.createSchedule();
+                house.setRent();
+                exportFile("monthly_schedule_" + propertyName + ".csv", house.getSchedule());
+                exportFile("yearly_schedule_" + propertyName + ".csv", house.getYearly_schedule());
+                Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG).show();
+                String analysis = "";
+                if (house.hasFound80CLimit)
+                    analysis += "Your 80c contribution goes  below the limit in " + house.getYear_80c() + ". You will need to make other investments to exhaust the limit \n";
+                if (house.hasFoundZeroTax)
+                    analysis += "Your tax savings go below zero in " + house.getYear_zero_tax() + ". You might want to consider pre-payment. \n";
+                if (house.hasFoundPrincipalGreaterThanInterest)
+                    analysis += "The principal component of the EMI exceed the interest component in " + getMonthName(house.getMonth_repayment()) + "-" + house.getYear_repayment() + ". You might want to consider pre-payment. \n";
+                ((TextView) findViewById(R.id.analysis)).setText(analysis);
+            } else {
+                Toast.makeText(getApplicationContext(), "Handover Date should be earlier than Rent Date", Toast.LENGTH_LONG).show();
+            }
         } else {
-            house.setRent_start_month(rent_month);
-            house.setRent_start_year(rent_year);
-            house.setFirst_rent(Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString()));
-            house.setRent_increase(Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100);
+            Toast.makeText(getApplicationContext(), "Loan Date should be earlier than Handover Date", Toast.LENGTH_LONG).show();
         }
-        house.createSchedule();
-        house.setRent();
-        exportFile("monthly_schedule_" + propertyName + ".csv", house.getSchedule());
-        exportFile("yearly_schedule_" + propertyName + ".csv", house.getYearly_schedule());
-        Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG).show();
-        String analysis = "";
-        if (house.hasFound80CLimit)
-            analysis += "Your 80c contribution goes  below the limit in " + house.getYear_80c() + ". You will need to make other investments to exhaust the limit \n";
-        if (house.hasFoundZeroTax)
-            analysis += "Your tax savings go below zero in " + house.getYear_zero_tax() + ". You might want to consider pre-payment. \n";
-        if (house.hasFoundPrincipalGreaterThanInterest)
-            analysis += "The principal component of the EMI exceed the interest component in " + getMonthName(house.getMonth_repayment()) + "-" + house.getYear_repayment() + ". You might want to consider pre-payment. \n";
-        ((TextView) findViewById(R.id.analysis)).setText(analysis);
     }
 
 
@@ -297,6 +308,24 @@ public class MainActivity extends AppCompatActivity {
     private String getMonthName(int month) {
         String Months[] = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
         return Months[month];
+    }
+
+    private boolean isDateSmaller(int start_date, int start_year, int end_date, int end_year) {
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/yyyy");
+            String str1 = "" + start_date + "/" + start_year;
+            Date date1 = formatter.parse(str1);
+            String str2 = "" + end_date + "/" + end_year;
+            Date date2 = formatter.parse(str2);
+            if (date1.compareTo(date2) <= 0) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e1) {
+            e1.printStackTrace();
+            return false;
+        }
     }
 }
 
