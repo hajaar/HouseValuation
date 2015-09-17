@@ -13,6 +13,10 @@ public class House {
     private static final double self_occupied_max_interest = 200000;
     private static final double rent_claimable_percentage = 0.7;
     private static final double max_tax_rate = 0.309;
+    private static final int limit_80c = 150000;
+    boolean hasFound80CLimit = false;
+    boolean hasFoundPrincipalGreaterThanInterest = false;
+    boolean hasFoundZeroTax = false;
     private double principal = 0;
     private double monthly_interest = 0;
     private double months = 0;
@@ -26,17 +30,50 @@ public class House {
     private int rent_start_month;
     private int rent_start_year;
     private int financial_month;
+    private String year_80c = "";
+    private String year_zero_tax = "";
+    private int month_repayment;
+    private int year_repayment;
     private double first_rent;
     private double rent_increase;
     private boolean self_occupied;
     private ArrayList<MonthlyLedger> monthlyLedgers = new ArrayList<>();
     private ArrayList<YearlyLedger> yearlyLedgers = new ArrayList<>();
+
     public House(double principal, double monthly_interest, double months) {
         this.principal = principal;
         this.monthly_interest = monthly_interest;
         this.months = months;
         this.self_occupied = true;
         setEmi();
+    }
+
+    public boolean isHasFound80CLimit() {
+        return hasFound80CLimit;
+    }
+
+    public boolean isHasFoundPrincipalGreaterThanInterest() {
+        return hasFoundPrincipalGreaterThanInterest;
+    }
+
+    public boolean isHasFoundZeroTax() {
+        return hasFoundZeroTax;
+    }
+
+    public int getYear_repayment() {
+        return year_repayment;
+    }
+
+    public String getYear_80c() {
+        return year_80c;
+    }
+
+    public String getYear_zero_tax() {
+        return year_zero_tax;
+    }
+
+    public int getMonth_repayment() {
+        return month_repayment;
     }
 
     public void setPrincipal(double principal) {
@@ -139,6 +176,7 @@ public class House {
         double temp_yrly_principal = 0;
         int current_month = loan_start_month;
         int current_year = loan_start_year;
+
         if (current_month <= 2) {
             financial_month = 10 + current_month;
         } else {
@@ -150,10 +188,19 @@ public class House {
             temp_yrly_int += temp_int;
             temp_principal = emi - temp_int;
             temp_yrly_principal += temp_principal;
+            if (temp_principal > temp_int && !hasFoundPrincipalGreaterThanInterest) {
+                month_repayment = (i + current_month) % 12;
+                year_repayment = current_year;
+                hasFoundPrincipalGreaterThanInterest = true;
+            }
             MonthlyLedger monthlyLedger = new MonthlyLedger(i, (i + current_month) % 12, current_year, op_bal, temp_principal, temp_int);
             monthlyLedgers.add(monthlyLedger);
             op_bal = op_bal - temp_principal;
             if ((i + financial_month) % 12 == 0) {
+                if (temp_yrly_principal <= limit_80c) {
+                    year_80c += current_year + " , ";
+                    hasFound80CLimit = true;
+                }
                 YearlyLedger yearlyLedger = new YearlyLedger(current_year - loan_start_year, current_year, temp_yrly_int, temp_yrly_principal);
                 yearlyLedgers.add(yearlyLedger);
                 current_year += 1;
@@ -217,6 +264,7 @@ public class House {
         int counter = 0;
         String notation = "";
 
+
         for (YearlyLedger i : yearlyLedgers) {
             tmp_tax_status = i.getTax_status();
             if (tmp_tax_status == 'C') {
@@ -245,6 +293,10 @@ public class House {
                     Log.d("calculateTax", " tax with int " + tmp_tax_saving + "counter " + counter);
                     counter++;
                 }
+            }
+            if (tmp_tax_saving < 0) {
+                year_zero_tax += i.getFinancial_year() + " , ";
+                hasFoundZeroTax = true;
             }
             i.setTax_saving(Math.round(tmp_tax_saving));
             i.setTotal_outflow();

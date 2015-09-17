@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -132,6 +133,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 calculateEMI();
+            }
+        });
+        ToggleButton toggleButton = (ToggleButton) findViewById(R.id.self_occupied);
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                boolean i;
+                if (isChecked) {
+                    i = false;
+                } else {
+                    i = true;
+                }
+                ((TextView) findViewById(R.id.occupation_status_label)).setEnabled(i);
+                ((Button) findViewById(R.id.rent_button)).setEnabled(i);
+                ((TextView) findViewById(R.id.rent_label)).setEnabled(i);
+                ((TextView) findViewById(R.id.percentage_label)).setEnabled(i);
+                ((TextView) findViewById(R.id.rate_label)).setEnabled(i);
+                ((EditText) findViewById(R.id.first_rent)).setEnabled(i);
+                ((EditText) findViewById(R.id.rent_increase)).setEnabled(i);
             }
         });
     }
