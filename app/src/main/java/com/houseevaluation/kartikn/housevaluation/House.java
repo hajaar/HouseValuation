@@ -131,7 +131,7 @@ public class House {
         if (current_month <= 2) {
             financial_month = 10 + current_month;
         } else {
-            financial_month = 2 - current_month;
+            financial_month = current_month - 2;
         }
 
         for (int i = 0; i < months; i++) {
@@ -210,23 +210,26 @@ public class House {
             if (tmp_tax_status == 'C') {
                 tmp_tax_saving = 0;
                 construction_interest += i.getYearly_interest();
+                Log.d("calculateTax ", "construction interest " + construction_interest);
             }
             if (tmp_tax_status == 'S') {
                 tmp_tax_saving = i.getYearly_interest();
                 if (counter < 5) {
-                    tmp_tax_saving += construction_interest / 5;
+                    tmp_tax_saving += construction_interest / 5 * max_tax_rate;
                     counter++;
                 }
                 tmp_tax_saving = Math.min(tmp_tax_saving, self_occupied_max_interest);
             }
             if (i.getTax_status() == 'R') {
                 tmp_tax_saving = (i.getYearly_interest() - i.getYearly_rent() * rent_claimable_percentage) * max_tax_rate;
+                Log.d("calculateTax", "tax " + tmp_tax_saving);
                 if (counter < 5) {
-                    tmp_tax_saving += construction_interest / 5;
+                    tmp_tax_saving += construction_interest / 5 * max_tax_rate;
+                    Log.d("calculateTax", " tax with int " + tmp_tax_saving + "counter " + counter);
                     counter++;
                 }
             }
-            i.setTax_saving(Math.round(tmp_tax_saving * 100) / 100);
+            i.setTax_saving(Math.round(tmp_tax_saving));
             i.setTotal_outflow();
         }
     }

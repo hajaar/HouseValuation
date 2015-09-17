@@ -177,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
         }
         house.createSchedule();
         house.setRent();
-        exportFile("monthly_schedule_" + propertyName + ".txt", house.getSchedule());
+        exportFile("monthly_schedule_" + propertyName + ".csv", house.getSchedule());
         exportFile("yearly_schedule_" + propertyName + ".csv", house.getYearly_schedule());
         Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG).show();
     }
