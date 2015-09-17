@@ -276,14 +276,7 @@ public class MainActivity extends AppCompatActivity {
                 exportFile(propertyName + "_monthly_schedule_" + date.format(cal.getTime()) + ".csv", house.getSchedule());
                 exportFile(propertyName + "_yearly_schedule_" + date.format(cal.getTime()) + ".csv", house.getYearly_schedule());
                 Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG).show();
-                String analysis = "";
-                if (house.hasFound80CLimit)
-                    analysis += "Your 80c contribution goes  below the limit in " + house.getYear_80c() + ". You will need to make other investments to exhaust the limit \n";
-                if (house.hasFoundZeroTax)
-                    analysis += "Your tax savings go below zero in " + house.getYear_zero_tax() + ". You might want to consider pre-payment. \n";
-                if (house.hasFoundPrincipalGreaterThanInterest)
-                    analysis += "The principal component of the EMI exceed the interest component in " + getMonthName(house.getMonth_repayment()) + "-" + house.getYear_repayment() + ". You might want to consider pre-payment. \n";
-                ((TextView) findViewById(R.id.analysis)).setText(analysis);
+                ((TextView) findViewById(R.id.analysis)).setText(house.getAnalysis());
             } else {
                 Toast.makeText(getApplicationContext(), "Handover Date should be earlier than Rent Date", Toast.LENGTH_LONG).show();
             }
