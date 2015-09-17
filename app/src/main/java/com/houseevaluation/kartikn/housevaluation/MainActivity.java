@@ -40,8 +40,11 @@ public class MainActivity extends AppCompatActivity {
             loan_month = monthOfYear;
             day_x = dayOfMonth;
             Button btn1 = (Button) findViewById(R.id.loan_button);
+            //  if (validateDates) {
             btn1.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
         }
+        // else
+        //}
     };
     private DatePickerDialog.OnDateSetListener dpickerListener2
             = new DatePickerDialog.OnDateSetListener() {
@@ -74,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        house = new House(0, 0, 0);
         Calendar cal = Calendar.getInstance();
         year_x = cal.get(Calendar.YEAR);
         month_x = cal.get(Calendar.MONTH);
@@ -133,20 +137,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void calculateEMI() {
+        double emi = 0;
         EditText textPrincipal = (EditText) findViewById(R.id.principal);
         EditText textYears = (EditText) findViewById(R.id.years);
         EditText textInterest = (EditText) findViewById(R.id.interest);
-        house = new House(0, 0, 0);
-        if (textPrincipal.getText() != null && textInterest.getText() != null && textYears.getText() != null) {
+        if (!isEmpty(textPrincipal) && !isEmpty(textInterest) && !isEmpty(textYears)) {
             house.setPrincipal(Double.valueOf(((TextView) findViewById(R.id.principal)).getText().toString()));
             house.setMonthly_interest(Double.valueOf(((TextView) findViewById(R.id.interest)).getText().toString()) / 1200);
             house.setMonths(Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12);
             house.setEmi();
+            emi = house.getEmi();
         }
-        ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + house.getEmi());
+        ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + emi);
     }
 
-
+    private boolean isEmpty(EditText etText) {
+        return etText.getText().toString().trim().length() == 0;
+    }
 
     public void showDialogOnButtonClick() {
         Button btn1 = (Button) findViewById(R.id.loan_button);
@@ -217,15 +224,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void showEMI(View v) {
-        house = new House(
-                Double.valueOf(((TextView) findViewById(R.id.principal)).getText().toString()),
-                Double.valueOf(((TextView) findViewById(R.id.interest)).getText().toString()) / 1200,
-                Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12
-        );
-        ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + house.getEmi());
-    }
-
     public void exportSchedule(View v) {
         String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
         boolean self_occupied = ((ToggleButton) findViewById(R.id.self_occupied)).isChecked();
@@ -263,8 +261,7 @@ public class MainActivity extends AppCompatActivity {
             fw.write(exportString);
             fw.flush();
             fw.close();
-        }
-        catch (IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
