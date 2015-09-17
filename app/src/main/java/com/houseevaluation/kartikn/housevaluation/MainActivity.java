@@ -2,6 +2,7 @@ package com.houseevaluation.kartikn.housevaluation;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.media.MediaScannerConnection;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +23,7 @@ import android.widget.ToggleButton;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -269,8 +271,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 house.createSchedule();
                 house.setRent();
-                exportFile("monthly_schedule_" + propertyName + ".csv", house.getSchedule());
-                exportFile("yearly_schedule_" + propertyName + ".csv", house.getYearly_schedule());
+                Calendar cal = Calendar.getInstance();
+                DateFormat date = new SimpleDateFormat("MMddHHmmss");
+                exportFile(propertyName + "_monthly_schedule_" + date.format(cal.getTime()) + ".csv", house.getSchedule());
+                exportFile(propertyName + "_yearly_schedule_" + date.format(cal.getTime()) + ".csv", house.getYearly_schedule());
                 Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG).show();
                 String analysis = "";
                 if (house.hasFound80CLimit)
@@ -293,13 +297,14 @@ public class MainActivity extends AppCompatActivity {
         try {
             File file = new File(Environment.getExternalStoragePublicDirectory(
                     Environment.DIRECTORY_DOWNLOADS), "HouseValuation");
-
+            file.mkdirs();
             String filename = file.toString() + "/" + exportFile;
 
             FileWriter fw = new FileWriter(filename);
             fw.write(exportString);
             fw.flush();
             fw.close();
+            MediaScannerConnection.scanFile(this, new String[]{filename}, null, null);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
