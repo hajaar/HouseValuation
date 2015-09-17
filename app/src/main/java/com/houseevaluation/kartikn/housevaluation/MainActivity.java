@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -77,7 +79,74 @@ public class MainActivity extends AppCompatActivity {
         month_x = cal.get(Calendar.MONTH);
         day_x = cal.get(Calendar.DAY_OF_MONTH);
         showDialogOnButtonClick();
+        EditText textPrincipal = (EditText) findViewById(R.id.principal);
+        textPrincipal.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculateEMI();
+            }
+        });
+        EditText textYears = (EditText) findViewById(R.id.years);
+        textYears.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculateEMI();
+            }
+        });
+        EditText textInterest = (EditText) findViewById(R.id.interest);
+        textInterest.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                calculateEMI();
+            }
+        });
     }
+
+    public void calculateEMI() {
+        EditText textPrincipal = (EditText) findViewById(R.id.principal);
+        EditText textYears = (EditText) findViewById(R.id.years);
+        EditText textInterest = (EditText) findViewById(R.id.interest);
+        house = new House(0, 0, 0);
+        if (textPrincipal.getText() != null && textInterest.getText() != null && textYears.getText() != null) {
+            house.setPrincipal(Double.valueOf(((TextView) findViewById(R.id.principal)).getText().toString()));
+            house.setMonthly_interest(Double.valueOf(((TextView) findViewById(R.id.interest)).getText().toString()) / 1200);
+            house.setMonths(Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12);
+            house.setEmi();
+        }
+        ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + house.getEmi());
+    }
+
+
 
     public void showDialogOnButtonClick() {
         Button btn1 = (Button) findViewById(R.id.loan_button);

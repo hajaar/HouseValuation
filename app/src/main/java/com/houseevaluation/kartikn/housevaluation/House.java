@@ -31,13 +31,24 @@ public class House {
     private boolean self_occupied;
     private ArrayList<MonthlyLedger> monthlyLedgers = new ArrayList<>();
     private ArrayList<YearlyLedger> yearlyLedgers = new ArrayList<>();
-
     public House(double principal, double monthly_interest, double months) {
         this.principal = principal;
         this.monthly_interest = monthly_interest;
         this.months = months;
         this.self_occupied = true;
         setEmi();
+    }
+
+    public void setPrincipal(double principal) {
+        this.principal = principal;
+    }
+
+    public void setMonthly_interest(double monthly_interest) {
+        this.monthly_interest = monthly_interest;
+    }
+
+    public void setMonths(double months) {
+        this.months = months;
     }
 
     public void setFirst_rent(double first_rent) {

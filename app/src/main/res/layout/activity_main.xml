@@ -100,7 +100,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        Button
             android:id="@+id/calculate_emi"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
