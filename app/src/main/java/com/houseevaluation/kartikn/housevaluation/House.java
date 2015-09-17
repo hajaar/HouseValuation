@@ -18,7 +18,7 @@ public class House {
     private double months = 0;
     private double emi = 0;
     private String schedule = "ID, Month, Cal.Year, Fin. Year, Op Bal , Principal Paid, Interest Paid, Closing Balance, Rent, Tax Status \n";
-    private String yearly_schedule = "ID, Fin. Year,  Principal , Interest ,Tax Status, Rent , Tax Saving, Total Outflow \n";
+    private String yearly_schedule = "ID, Fin. Year,  Principal , Interest ,Tax Status, Rent , Tax Saving, Total Outflow, Notation \n";
     private int loan_start_month;
     private int loan_start_year;
     private int handover_month;
@@ -215,6 +215,7 @@ public class House {
         double construction_interest = 0;
         char tmp_tax_status;
         int counter = 0;
+        String notation = "";
 
         for (YearlyLedger i : yearlyLedgers) {
             tmp_tax_status = i.getTax_status();
@@ -222,26 +223,32 @@ public class House {
                 tmp_tax_saving = 0;
                 construction_interest += i.getYearly_interest();
                 Log.d("calculateTax ", "construction interest " + construction_interest);
+                notation = "Tax exemption on interest payments is not allowed until handover. One-fifth of the total interest can be claimed annually for the first five years after handover";
             }
             if (tmp_tax_status == 'S') {
                 tmp_tax_saving = i.getYearly_interest();
+                notation = "Tax exemption on interest payments is capped to Rs. " + self_occupied_max_interest;
                 if (counter < 5) {
                     tmp_tax_saving += construction_interest / 5 * max_tax_rate;
                     counter++;
+                    notation = "One-fifth of pre-handover interest can be claimed in this year. Tax exemption on interest payments is capped to Rs. " + self_occupied_max_interest;
                 }
                 tmp_tax_saving = Math.min(tmp_tax_saving, self_occupied_max_interest);
             }
             if (i.getTax_status() == 'R') {
                 tmp_tax_saving = (i.getYearly_interest() - i.getYearly_rent() * rent_claimable_percentage) * max_tax_rate;
+                notation = "Tax exemption is applicable for the entire interest component this year.";
                 Log.d("calculateTax", "tax " + tmp_tax_saving);
                 if (counter < 5) {
                     tmp_tax_saving += construction_interest / 5 * max_tax_rate;
+                    notation = "One-fifth of pre-handover interest can be claimed in this year. Tax exemption is applicable for the entire interest component this year.";
                     Log.d("calculateTax", " tax with int " + tmp_tax_saving + "counter " + counter);
                     counter++;
                 }
             }
             i.setTax_saving(Math.round(tmp_tax_saving));
             i.setTotal_outflow();
+            i.setNotation(notation);
         }
     }
 
@@ -284,7 +291,8 @@ public class House {
                     i.getTax_status() + "," +
                     i.getYearly_rent() + "," +
                     i.getTax_saving() + "," +
-                    i.getTotal_outflow() + "\n";
+                    i.getTotal_outflow() + "," +
+                    i.getNotation() + "\n";
         }
     }
 

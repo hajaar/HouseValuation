@@ -5,6 +5,7 @@ package com.houseevaluation.kartikn.housevaluation;
  */
 public class YearlyLedger {
 
+    String notation;
     private int financial_year;
     private int year_id;
     private double yearly_interest;
@@ -13,7 +14,6 @@ public class YearlyLedger {
     private char tax_status;
     private double tax_saving;
     private double total_outflow;
-
 
     public YearlyLedger(int year_id, int financial_year, double yearly_interest, double yearly_principal) {
         this.financial_year = financial_year;
@@ -26,11 +26,20 @@ public class YearlyLedger {
         this.total_outflow = 0;
     }
 
+    public String getNotation() {
+        return notation;
+    }
+
+    public void setNotation(String notation) {
+        this.notation = notation;
+    }
+
     public char getTax_status() {
         return tax_status;
     }
 
     public void setTax_status(char tax_status) {
+
         this.tax_status = tax_status;
     }
 
