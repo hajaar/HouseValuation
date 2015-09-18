@@ -111,9 +111,13 @@ public class MainActivity extends AppCompatActivity {
         ((EditText) findViewById(R.id.principal)).setText(tmp_principal);
         ((EditText) findViewById(R.id.years)).setText(tmp_years);
         ((EditText) findViewById(R.id.interest)).setText(tmp_interest);
-        ((EditText) findViewById(R.id.first_rent)).setText(sharedPref.getString("rent", null));
-        ((EditText) findViewById(R.id.rent_increase)).setText(sharedPref.getString("annual_increase", null));
-
+        boolean tmp_self_occupied = sharedPref.getBoolean("self_occupied", false);
+        ((ToggleButton) findViewById(R.id.self_occupied)).setChecked(tmp_self_occupied);
+        disableAndEnableRent(tmp_self_occupied);
+        if (tmp_self_occupied == false) {
+            ((EditText) findViewById(R.id.first_rent)).setText(sharedPref.getString("rent", null));
+            ((EditText) findViewById(R.id.rent_increase)).setText(sharedPref.getString("annual_increase", null));
+        }
         house = new House(0, 0, 0);
         calculateEMI();
         showDialogOnButtonClick();
@@ -172,21 +176,26 @@ public class MainActivity extends AppCompatActivity {
         toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                boolean i;
-                if (isChecked) {
-                    i = false;
-                } else {
-                    i = true;
-                }
-                ((TextView) findViewById(R.id.occupation_status_label)).setEnabled(i);
-                ((Button) findViewById(R.id.rent_button)).setEnabled(i);
-                ((TextView) findViewById(R.id.rent_label)).setEnabled(i);
-                ((TextView) findViewById(R.id.percentage_label)).setEnabled(i);
-                ((TextView) findViewById(R.id.rate_label)).setEnabled(i);
-                ((EditText) findViewById(R.id.first_rent)).setEnabled(i);
-                ((EditText) findViewById(R.id.rent_increase)).setEnabled(i);
+                disableAndEnableRent(isChecked);
+
             }
         });
+    }
+
+    private void disableAndEnableRent(boolean isChecked) {
+        boolean i;
+        if (isChecked) {
+            i = false;
+        } else {
+            i = true;
+        }
+        ((TextView) findViewById(R.id.occupation_status_label)).setEnabled(i);
+        ((Button) findViewById(R.id.rent_button)).setEnabled(i);
+        ((TextView) findViewById(R.id.rent_label)).setEnabled(i);
+        ((TextView) findViewById(R.id.percentage_label)).setEnabled(i);
+        ((TextView) findViewById(R.id.rate_label)).setEnabled(i);
+        ((EditText) findViewById(R.id.first_rent)).setEnabled(i);
+        ((EditText) findViewById(R.id.rent_increase)).setEnabled(i);
     }
 
     public void calculateEMI() {
@@ -307,6 +316,9 @@ public class MainActivity extends AppCompatActivity {
     public void exportSchedule(View v) {
         String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
         boolean self_occupied = ((ToggleButton) findViewById(R.id.self_occupied)).isChecked();
+        SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+        editor.putBoolean("self_occupied", self_occupied);
+        editor.commit();
         if (isDateSmaller(loan_month, loan_year, handover_month, handover_year)) {
             if (self_occupied || isDateSmaller(handover_month, handover_year, rent_month, rent_year)) {
                 house.setSelf_occupied(self_occupied);
@@ -323,7 +335,6 @@ public class MainActivity extends AppCompatActivity {
                     house.setRent_start_year(rent_year);
                     house.setFirst_rent(Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString()));
                     house.setRent_increase(Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100);
-                    SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
                     editor.putString("rent", ((EditText) findViewById(R.id.first_rent)).getText().toString());
                     editor.putString("annual_increase", ((EditText) findViewById(R.id.rent_increase)).getText().toString());
                     editor.commit();

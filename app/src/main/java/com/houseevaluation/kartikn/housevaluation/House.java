@@ -20,8 +20,8 @@ public class House {
     private double monthly_interest = 0;
     private double months = 0;
     private double emi = 0;
-    private String schedule = "id, Month, Cal.Year, Fin. Year, Op Bal , Principal Paid, Interest Paid, Closing Balance, Rent, Tax Status \n";
-    private String yearly_schedule = "id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n";
+    private String schedule;
+    private String yearly_schedule;
     private int loan_start_month;
     private int loan_start_year;
     private int handover_month;
@@ -349,8 +349,7 @@ public class House {
     }
 
     private void exportSchedule() {
-        schedule = "";
-
+        schedule = "id, Month, Cal.Year, Fin. Year, Op Bal , Principal Paid, Interest Paid, Closing Balance, Rent, Tax Status \n";
         for (MonthlyLedger i : monthlyLedgers) {
             schedule += (i.getMonth_id() + 1) + "," +
                     getMonthName(i.getMonth()) + "," +
@@ -366,7 +365,7 @@ public class House {
     }
 
     private void exportYearlySchedule() {
-        yearly_schedule = "";
+        yearly_schedule = "id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n";
         for (YearlyLedger i : yearlyLedgers) {
             yearly_schedule += (i.getYear_id() + 1) + "," +
                     i.getFinancial_year() + "," +
