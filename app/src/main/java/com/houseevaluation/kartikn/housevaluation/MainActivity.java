@@ -2,7 +2,9 @@ package com.houseevaluation.kartikn.housevaluation;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -45,19 +47,22 @@ public class MainActivity extends AppCompatActivity {
     private ShareActionProvider mshareActionProvider;
     private ArrayList<Uri> files = new ArrayList<Uri>();
 
-    private int year_x, month_x, day_x, loan_month, loan_year, handover_month, handover_year, rent_month, rent_year;
+    private int year_x, month_x, day_x, loan_date, loan_month, loan_year, handover_date, handover_month, handover_year, rent_date, rent_month, rent_year;
     private DatePickerDialog.OnDateSetListener dpickerListener1
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            year_x = year;
             loan_year = year;
-            month_x = monthOfYear;
             loan_month = monthOfYear;
-            day_x = dayOfMonth;
+            loan_date = dayOfMonth;
             Button btn1 = (Button) findViewById(R.id.loan_button);
             //  if (validateDates) {
-            btn1.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
+            btn1.setText(loan_date + "-" + getMonthName(loan_month) + "-" + loan_year);
+            SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+            editor.putInt("loan_day", loan_date);
+            editor.putInt("loan_month", loan_month);
+            editor.putInt("loan_year", loan_year);
+            editor.commit();
         }
         // else
         //}
@@ -66,26 +71,32 @@ public class MainActivity extends AppCompatActivity {
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            year_x = year;
             handover_year = year;
-            month_x = monthOfYear;
             handover_month = monthOfYear;
-            day_x = dayOfMonth;
+            handover_date = dayOfMonth;
             Button btn2 = (Button) findViewById(R.id.handover_button);
-            btn2.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
+            btn2.setText(handover_date + "-" + getMonthName(handover_month) + "-" + handover_year);
+            SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+            editor.putInt("handover_day", handover_date);
+            editor.putInt("handover_month", handover_month);
+            editor.putInt("handover_year", handover_year);
+            editor.commit();
         }
     };
     private DatePickerDialog.OnDateSetListener dpickerListener3
             = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-            year_x = year;
             rent_year = year;
-            month_x = monthOfYear;
             rent_month = monthOfYear;
-            day_x = dayOfMonth;
+            rent_date = dayOfMonth;
             Button btn3 = (Button) findViewById(R.id.rent_button);
-            btn3.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
+            btn3.setText(rent_date + "-" + getMonthName(rent_month) + "-" + rent_year);
+            SharedPreferences.Editor editor = getPreferences(MODE_PRIVATE).edit();
+            editor.putInt("rent_day", rent_date);
+            editor.putInt("rent_month", rent_month);
+            editor.putInt("rent_year", rent_year);
+            editor.commit();
         }
     };
 
@@ -93,11 +104,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        String tmp_principal = sharedPref.getString("principal", null);
+        String tmp_years = sharedPref.getString("years", null);
+        String tmp_interest = sharedPref.getString("interest", null);
+        ((EditText) findViewById(R.id.principal)).setText(tmp_principal);
+        ((EditText) findViewById(R.id.years)).setText(tmp_years);
+        ((EditText) findViewById(R.id.interest)).setText(tmp_interest);
+        ((EditText) findViewById(R.id.first_rent)).setText(sharedPref.getString("rent", null));
+        ((EditText) findViewById(R.id.rent_increase)).setText(sharedPref.getString("annual_increase", null));
+
         house = new House(0, 0, 0);
-        Calendar cal = Calendar.getInstance();
-        year_x = cal.get(Calendar.YEAR);
-        month_x = cal.get(Calendar.MONTH);
-        day_x = cal.get(Calendar.DAY_OF_MONTH);
+        calculateEMI();
         showDialogOnButtonClick();
         EditText textPrincipal = (EditText) findViewById(R.id.principal);
         textPrincipal.addTextChangedListener(new TextWatcher() {
@@ -182,8 +200,14 @@ public class MainActivity extends AppCompatActivity {
             house.setMonths(Double.valueOf(((TextView) findViewById(R.id.years)).getText().toString()) * 12);
             house.setEmi();
             emi = house.getEmi();
+            SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+            editor.putString("principal", ((TextView) findViewById(R.id.principal)).getText().toString());
+            editor.putString("years", ((TextView) findViewById(R.id.years)).getText().toString());
+            editor.putString("interest", ((TextView) findViewById(R.id.interest)).getText().toString());
+            editor.commit();
         }
         ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + emi);
+
     }
 
     private boolean isEmpty(EditText etText) {
@@ -194,15 +218,24 @@ public class MainActivity extends AppCompatActivity {
         Button btn1 = (Button) findViewById(R.id.loan_button);
         Button btn2 = (Button) findViewById(R.id.handover_button);
         Button btn3 = (Button) findViewById(R.id.rent_button);
-        btn1.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
-        btn2.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
-        btn3.setText(day_x + "-" + getMonthName(month_x) + "-" + year_x);
-        loan_year = year_x;
-        handover_year = year_x;
-        rent_year = year_x;
-        loan_month = month_x;
-        handover_month = month_x;
-        rent_month = month_x;
+        Calendar cal = Calendar.getInstance();
+        year_x = cal.get(Calendar.YEAR);
+        month_x = cal.get(Calendar.MONTH);
+        day_x = cal.get(Calendar.DAY_OF_MONTH);
+        SharedPreferences prefs = getPreferences(Context.MODE_PRIVATE);
+        loan_year = prefs.getInt("loan_year", year_x);
+        loan_month = prefs.getInt("loan_month", month_x);
+        loan_date = prefs.getInt("loan_day", day_x);
+        handover_year = prefs.getInt("handover_year", year_x);
+        handover_month = prefs.getInt("handover_month", month_x);
+        handover_date = prefs.getInt("handover_day", day_x);
+        rent_year = prefs.getInt("rent_year", year_x);
+        rent_month = prefs.getInt("rent_month", month_x);
+        rent_date = prefs.getInt("rent_day", day_x);
+
+        btn1.setText(loan_date + "-" + getMonthName(loan_month) + "-" + loan_year);
+        btn2.setText(handover_date + "-" + getMonthName(handover_month) + "-" + handover_year);
+        btn3.setText(rent_date + "-" + getMonthName(rent_month) + "-" + rent_year);
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -227,11 +260,11 @@ public class MainActivity extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id) {
             case DIALOG_ID1:
-                return new DatePickerDialog(this, dpickerListener1, year_x, month_x, day_x);
+                return new DatePickerDialog(this, dpickerListener1, loan_year, loan_month, loan_date);
             case DIALOG_ID2:
-                return new DatePickerDialog(this, dpickerListener2, year_x, month_x, day_x);
+                return new DatePickerDialog(this, dpickerListener2, handover_year, handover_month, handover_date);
             case DIALOG_ID3:
-                return new DatePickerDialog(this, dpickerListener3, year_x, month_x, day_x);
+                return new DatePickerDialog(this, dpickerListener3, rent_year, rent_month, rent_date);
         }
         return null;
     }
@@ -290,6 +323,10 @@ public class MainActivity extends AppCompatActivity {
                     house.setRent_start_year(rent_year);
                     house.setFirst_rent(Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString()));
                     house.setRent_increase(Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100);
+                    SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+                    editor.putString("rent", ((EditText) findViewById(R.id.first_rent)).getText().toString());
+                    editor.putString("annual_increase", ((EditText) findViewById(R.id.rent_increase)).getText().toString());
+                    editor.commit();
                 }
                 house.createSchedule();
                 house.setRent();
