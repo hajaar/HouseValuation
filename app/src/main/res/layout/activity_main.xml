@@ -98,11 +98,11 @@
         android:orientation="horizontal">
 
         Button
-            android:id="@+id/calculate_emi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="showEMI"
-            android:text="@string/calculate_emi" />
+        android:id="@+id/calculate_emi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="showEMI"
+        android:text="@string/calculate_emi" />
 
         <TextView
             android:id="@+id/emi"
@@ -155,11 +155,11 @@
 
         <ToggleButton
 
-        android:id="@+id/self_occupied"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textOff="Rented Out"
-        android:textOn="Self-occupied" />
+            android:id="@+id/self_occupied"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="Rented Out"
+            android:textOn="Self-occupied" />
 
     </LinearLayout>
 
@@ -181,10 +181,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="1" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/rent_label"
             android:layout_width="0dp"
@@ -231,10 +233,58 @@
         android:onClick="exportSchedule"
         android:text="@string/export_schedule" />
 
-    <TextView
-        android:id="@+id/analysis"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <TextView
+            android:id="@+id/message_80c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/health_80c" />
+
+        <TextView
+            android:id="@+id/value_80c"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/message_24b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/health_24b" />
+
+        <TextView
+            android:id="@+id/value_24b"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/message_principle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/health_principal" />
+
+        <TextView
+            android:id="@+id/value_principal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </LinearLayout>

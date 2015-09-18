@@ -39,7 +39,9 @@ public class House {
     private boolean self_occupied;
     private ArrayList<MonthlyLedger> monthlyLedgers = new ArrayList<>();
     private ArrayList<YearlyLedger> yearlyLedgers = new ArrayList<>();
-    private String analysis;
+    private String analysis_80c;
+    private String analysis_24b;
+    private String analysis_principal;
 
     public House(double principal, double monthly_interest, double months) {
         this.principal = principal;
@@ -49,8 +51,16 @@ public class House {
         setEmi();
     }
 
-    public String getAnalysis() {
-        return analysis;
+    public String getAnalysis_principal() {
+        return analysis_principal;
+    }
+
+    public String getAnalysis_80c() {
+        return analysis_80c;
+    }
+
+    public String getAnalysis_24b() {
+        return analysis_24b;
     }
 
     public boolean isHasFound80CLimit() {
@@ -311,13 +321,15 @@ public class House {
     }
 
     private void createAnalysis() {
-        analysis = "";
+        analysis_80c = "";
+        analysis_24b = "";
+        analysis_principal = "";
         if (hasFound80CLimit)
-            analysis += "Your 80c contribution goes  below the limit in " + getYear_80c() + ". You will need to make other investments to exhaust the limit \n";
+            analysis_80c = "Your 80c contribution goes  below the limit in " + getYear_80c() + ". You will need to make other investments to exhaust the limit \n";
         if (hasFoundZeroTax)
-            analysis += "Your tax savings go below zero in " + getYear_zero_tax() + ". You might want to consider pre-payment. \n";
+            analysis_24b = "Your tax savings go below zero in " + getYear_zero_tax() + ". You might want to consider pre-payment. \n";
         if (hasFoundPrincipalGreaterThanInterest)
-            analysis += "The principal component of the EMI exceed the interest component in " + getMonthName(getMonth_repayment()) + "-" + getYear_repayment() + ". You might want to consider pre-payment. \n";
+            analysis_principal = "The principal component of the EMI exceed the interest component in " + getMonthName(getMonth_repayment()) + "-" + getYear_repayment() + ". You might want to consider pre-payment. \n";
     }
 
     private int getID(int start_month, int start_year, int end_month, int end_year) {

@@ -2,10 +2,14 @@ package com.houseevaluation.kartikn.housevaluation;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.media.MediaScannerConnection;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -26,6 +30,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -35,6 +40,11 @@ public class MainActivity extends AppCompatActivity {
     static final int DIALOG_ID2 = 1;
     static final int DIALOG_ID3 = 2;
     private House house;
+    private String monthlyschedule = "";
+    private String yearlyschedule = "";
+    private ShareActionProvider mshareActionProvider;
+    private ArrayList<Uri> files = new ArrayList<Uri>();
+
     private int year_x, month_x, day_x, loan_month, loan_year, handover_month, handover_year, rent_month, rent_year;
     private DatePickerDialog.OnDateSetListener dpickerListener1
             = new DatePickerDialog.OnDateSetListener() {
@@ -230,7 +240,19 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_share);
+        mshareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(menuItem);
         return true;
+    }
+
+    private Intent createShareForecastIntent() {
+        Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        shareIntent.setType("text/csv");
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, "House Valuation Files");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "PFA yearly and monthly schedules");
+        shareIntent.putExtra(Intent.EXTRA_STREAM, files);
+        return shareIntent;
     }
 
     @Override
@@ -241,10 +263,10 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+/*        if (id == R.id.action_settings) {
             return true;
         }
-
+*/
         return super.onOptionsItemSelected(item);
     }
 
@@ -273,10 +295,16 @@ public class MainActivity extends AppCompatActivity {
                 house.setRent();
                 Calendar cal = Calendar.getInstance();
                 DateFormat date = new SimpleDateFormat("MMddHHmmss");
-                exportFile(propertyName + "_monthly_schedule_" + date.format(cal.getTime()) + ".csv", house.getSchedule());
-                exportFile(propertyName + "_yearly_schedule_" + date.format(cal.getTime()) + ".csv", house.getYearly_schedule());
-                Toast.makeText(getApplicationContext(), "The schedules have been exported to your downloads folder", Toast.LENGTH_LONG).show();
-                ((TextView) findViewById(R.id.analysis)).setText(house.getAnalysis());
+                monthlyschedule = house.getSchedule();
+                yearlyschedule = house.getYearly_schedule();
+                exportFile(propertyName + "_monthly_schedule_" + date.format(cal.getTime()) + ".csv", monthlyschedule);
+                exportFile(propertyName + "_yearly_schedule_" + date.format(cal.getTime()) + ".csv", yearlyschedule);
+                if (mshareActionProvider != null) {
+                    mshareActionProvider.setShareIntent(createShareForecastIntent());
+                }
+                ((TextView) findViewById(R.id.value_80c)).setText(house.getAnalysis_80c());
+                ((TextView) findViewById(R.id.value_24b)).setText(house.getAnalysis_24b());
+                ((TextView) findViewById(R.id.value_principal)).setText(house.getAnalysis_principal());
             } else {
                 Toast.makeText(getApplicationContext(), "Handover Date should be earlier than Rent Date", Toast.LENGTH_LONG).show();
             }
@@ -298,6 +326,9 @@ public class MainActivity extends AppCompatActivity {
             fw.flush();
             fw.close();
             MediaScannerConnection.scanFile(this, new String[]{filename}, null, null);
+            files.add(Uri.parse(filename));
+
+
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
