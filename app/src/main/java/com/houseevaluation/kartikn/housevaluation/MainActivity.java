@@ -103,6 +103,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        new SimpleEula(this).show();
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         ((EditText) findViewById(R.id.property_name)).setText(sharedPref.getString("property_name", null));
         ((EditText) findViewById(R.id.principal)).setText(sharedPref.getString("principal", null));
