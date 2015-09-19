@@ -328,11 +328,11 @@ public class House {
         analysis_24b = "Good";
         analysis_principal = "Good";
         if (hasFound80CLimit)
-            analysis_80c = ": Your 80c contribution goes  below the limit in " + getYear_80c() + ". You will need to make other investments to exhaust the limit \n";
+            analysis_80c = "Your 80c contribution goes  below the limit in " + getYear_80c() + ". Please make other investments to exhaust the limit \n";
         if (hasFoundZeroTax)
-            analysis_24b = ": Your tax savings go below zero in " + getYear_zero_tax() + ". You might want to consider pre-payment. \n";
+            analysis_24b = "Your 24(b) tax savings go below zero in " + getYear_zero_tax() + ".Please consider pre-payment. \n";
         if (hasFoundPrincipalGreaterThanInterest)
-            analysis_principal = ": The principal component of the EMI exceed the interest component in " + getMonthName(getMonth_repayment()) + "-" + getYear_repayment() + ". You might want to consider pre-payment. \n";
+            analysis_principal = "The principal component of the EMI exceeds the interest component in " + getMonthName(getMonth_repayment()) + "-" + getYear_repayment() + ". Please consider pre-payment. \n";
     }
 
     private int getID(int start_month, int start_year, int end_month, int end_year) {
@@ -349,7 +349,7 @@ public class House {
     }
 
     private void exportSchedule() {
-        schedule = "id, Month, Cal.Year, Fin. Year, Op Bal , Principal Paid, Interest Paid, Closing Balance, Rent, Tax Status \n";
+        schedule = "id, Month, Cal.Year, Fin. Year, Op Bal , Principal, Interest , Closing Balance, Rent, Tax Status \n";
         for (MonthlyLedger i : monthlyLedgers) {
             schedule += (i.getMonth_id() + 1) + "," +
                     getMonthName(i.getMonth()) + "," +

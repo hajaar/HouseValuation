@@ -13,7 +13,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="4dp"
-        android:text="@string/app_description" />
+        android:text="@string/app_description"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,14 +26,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="@string/property_name" />
+            android:text="@string/property_name"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/property_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="wooo" />
+            android:text="wooo"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
@@ -48,7 +51,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:padding="4dp"
-            android:text="@string/principal" />
+            android:text="@string/principal"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/principal"
@@ -56,7 +60,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="3"
             android:inputType="number"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
         <TextView
@@ -64,7 +69,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:padding="4dp"
-            android:text="@string/years" />
+            android:text="@string/years"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/years"
@@ -72,14 +78,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="number"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:padding="4dp"
-            android:text="@string/interest" />
+            android:text="@string/interest"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
         <EditText
@@ -88,12 +96,14 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:inputType="numberDecimal"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="%" />
+            android:text="%"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 
@@ -103,19 +113,20 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        Button
-        android:id="@+id/calculate_emi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="showEMI"
-        android:text="@string/calculate_emi" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:padding="8dp"
+            android:text="@string/emi_message"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/emi"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:padding="8dp"
-            android:text="@string/emi" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
     </LinearLayout>
 
 
@@ -128,7 +139,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/loan_date" />
+            android:text="@string/loan_date"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
             android:id="@+id/loan_button"
@@ -140,7 +152,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/handover_date" />
+            android:text="@string/handover_date"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
             android:id="@+id/handover_button"
@@ -157,7 +170,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/rent_message" />
+            android:text="@string/rent_message"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ToggleButton
 
@@ -179,7 +193,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/rent_date" />
+            android:text="@string/rent_date"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
             android:id="@+id/rent_button"
@@ -198,7 +213,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/starting_rent" />
+            android:text="@string/starting_rent"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/first_rent"
@@ -206,14 +222,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:inputType="numberSigned"
-            android:text="15000" />
+            android:text="15000"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/rate_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="@string/expected_rent_increase" />
+            android:text="@string/expected_rent_increase"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/rent_increase"
@@ -221,14 +239,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="numberDecimal"
-            android:text="5" />
+            android:text="5"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/percentage_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:text="% Annually" />
+            android:text="% Annually"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
 
@@ -248,12 +268,14 @@
             android:id="@+id/message_80c"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/health_80c" />
+            android:text="@string/health_80c"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/value_80c"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
@@ -266,12 +288,14 @@
             android:id="@+id/message_24b"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/health_24b" />
+            android:text="@string/health_24b"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/value_24b"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
@@ -285,12 +309,14 @@
             android:id="@+id/message_principle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/health_principal" />
+            android:text="@string/health_principal"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/value_principal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
 </LinearLayout>

@@ -105,12 +105,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        String tmp_principal = sharedPref.getString("principal", null);
-        String tmp_years = sharedPref.getString("years", null);
-        String tmp_interest = sharedPref.getString("interest", null);
-        ((EditText) findViewById(R.id.principal)).setText(tmp_principal);
-        ((EditText) findViewById(R.id.years)).setText(tmp_years);
-        ((EditText) findViewById(R.id.interest)).setText(tmp_interest);
+        ((EditText) findViewById(R.id.property_name)).setText(sharedPref.getString("property_name", null));
+        ((EditText) findViewById(R.id.principal)).setText(sharedPref.getString("principal", null));
+        ((EditText) findViewById(R.id.years)).setText(sharedPref.getString("years", null));
+        ((EditText) findViewById(R.id.interest)).setText(sharedPref.getString("interest", null));
         boolean tmp_self_occupied = sharedPref.getBoolean("self_occupied", false);
         ((ToggleButton) findViewById(R.id.self_occupied)).setChecked(tmp_self_occupied);
         disableAndEnableRent(tmp_self_occupied);
@@ -121,8 +119,25 @@ public class MainActivity extends AppCompatActivity {
         house = new House(0, 0, 0);
         calculateEMI();
         showDialogOnButtonClick();
-        EditText textPrincipal = (EditText) findViewById(R.id.principal);
-        textPrincipal.addTextChangedListener(new TextWatcher() {
+        ((EditText) findViewById(R.id.property_name)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+                editor.putString("property_name", ((EditText) findViewById(R.id.property_name)).getText().toString());
+                editor.commit();
+            }
+        });
+        ((EditText) findViewById(R.id.principal)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -138,8 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 calculateEMI();
             }
         });
-        EditText textYears = (EditText) findViewById(R.id.years);
-        textYears.addTextChangedListener(new TextWatcher() {
+        ((EditText) findViewById(R.id.years)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -155,8 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 calculateEMI();
             }
         });
-        EditText textInterest = (EditText) findViewById(R.id.interest);
-        textInterest.addTextChangedListener(new TextWatcher() {
+        ((EditText) findViewById(R.id.interest)).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -170,6 +183,42 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 calculateEMI();
+            }
+        });
+        ((EditText) findViewById(R.id.first_rent)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+                editor.putString("rent", ((EditText) findViewById(R.id.first_rent)).getText().toString());
+                editor.commit();
+            }
+        });
+        ((EditText) findViewById(R.id.rent_increase)).addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+                editor.putString("annual_increase", ((EditText) findViewById(R.id.rent_increase)).getText().toString());
+                editor.commit();
             }
         });
         ToggleButton toggleButton = (ToggleButton) findViewById(R.id.self_occupied);
@@ -215,7 +264,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("interest", ((TextView) findViewById(R.id.interest)).getText().toString());
             editor.commit();
         }
-        ((TextView) findViewById(R.id.emi)).setText("Your EMI is " + emi);
+        ((TextView) findViewById(R.id.emi)).setText(" Rs." + emi);
 
     }
 
@@ -335,9 +384,6 @@ public class MainActivity extends AppCompatActivity {
                     house.setRent_start_year(rent_year);
                     house.setFirst_rent(Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString()));
                     house.setRent_increase(Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100);
-                    editor.putString("rent", ((EditText) findViewById(R.id.first_rent)).getText().toString());
-                    editor.putString("annual_increase", ((EditText) findViewById(R.id.rent_increase)).getText().toString());
-                    editor.commit();
                 }
                 house.createSchedule();
                 house.setRent();

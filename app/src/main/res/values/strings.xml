@@ -6,15 +6,15 @@
     <string name="action_settings">Settings</string>
     <string name="calculate_emi">Calculate EMI</string>
     <string name="interest">Years @</string>
-    <string name="emi">Your EMI is 0</string>
+    <string name="emi_message">The EMI is</string>
     <string name="export_schedule">Export Schedule</string>
     <string name="property_name">What Is The Name Of Your House?</string>
     <string name="loan_date"> Your Loan Starts On</string>
     <string name="handover_date">Handover Is Expected On</string>
-    <string name="rent_date">You Will Rent It Out On</string>
+    <string name="rent_date">Renting starts on</string>
     <string name="starting_rent">For Rs. </string>
     <string name="expected_rent_increase">Increasing @</string>
-    <string name="rent_message">Will You Be Renting Out Your House?</string>
+    <string name="rent_message">Planning to rent your house?</string>
 
     <string-array name="months">
         <item>Jan</item>
@@ -32,10 +32,10 @@
     </string-array>
 
     <string name="action_share">Share</string>
-    <string name="health_80c">80C Health</string>
-    <string name="health_24b">24(b) Health</string>
-    <string name="health_principal">Principal Health</string>
-    <string name="app_description">This App lets you evaluate the health of your loan</string>
+    <string name="health_80c">80C Health: </string>
+    <string name="health_24b">24(b) Health: </string>
+    <string name="health_principal">Principal Health: </string>
+    <string name="app_description">You can evaluate the health of your loan in this application</string>
 
 
 
