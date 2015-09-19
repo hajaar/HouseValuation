@@ -1,6 +1,9 @@
 package com.houseevaluation.kartikn.housevaluation;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * Created by kartikn on 13-09-2015.
@@ -343,32 +346,50 @@ public class House {
 
     private void exportSchedule() {
         schedule = "id, Month, Cal.Year, Fin. Year, Op Bal , Principal, Interest , Closing Balance, Rent, Tax Status \n";
+        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumIntegerDigits(20);
         for (MonthlyLedger i : monthlyLedgers) {
             schedule += (i.getMonth_id() + 1) + "," +
                     getMonthName(i.getMonth()) + "," +
                     i.getCalendar_year() + "," +
                     i.getFinancial_year() + "," +
-                    i.getOpening_balance() + "," +
-                    i.getPrincipal_paid() + "," +
-                    i.getInterest_paid() + "," +
-                    i.getClosing_balance() + "," +
-                    i.getRent_collected() + "," +
-                    i.getTax_status() + "\n";
+                    df.format(i.getOpening_balance()) + "," +
+                    df.format(i.getPrincipal_paid()) + "," +
+                    df.format(i.getInterest_paid()) + "," +
+                    df.format(i.getClosing_balance()) + "," +
+                    df.format(i.getRent_collected()) + "," +
+                    getFullTaxStatusName(i.getTax_status()) + "\n";
         }
     }
 
     private void exportYearlySchedule() {
         yearly_schedule = "id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n";
+        DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
+        df.setMaximumIntegerDigits(20);
         for (YearlyLedger i : yearlyLedgers) {
             yearly_schedule += (i.getYear_id() + 1) + "," +
                     i.getFinancial_year() + "," +
-                    i.getYearly_principal() + "," +
-                    i.getYearly_interest() + "," +
-                    i.getTax_status() + "," +
-                    i.getYearly_rent() + "," +
-                    i.getTax_saving() + "," +
-                    i.getTotal_outflow() + "," +
+                    df.format(i.getYearly_principal()) + "," +
+                    df.format(i.getYearly_interest()) + "," +
+                    getFullTaxStatusName(i.getTax_status()) + "," +
+                    df.format(i.getYearly_rent()) + "," +
+                    df.format(i.getTax_saving()) + "," +
+                    df.format(i.getTotal_outflow()) + "," +
                     i.getNotation() + "\n";
+        }
+    }
+
+    private String getFullTaxStatusName(char c) {
+        switch (c) {
+            case 'C':
+                return "Pre-construction";
+            case 'S':
+                return "Self Occupied";
+            case 'R':
+                return "Rented Out";
+            default:
+                return null;
+
         }
     }
 
