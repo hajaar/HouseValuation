@@ -3,21 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="8dp"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp"
     tools:context=".MainActivity">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/custombordergrey"
-        android:gravity="center"
-        android:padding="0dp"
-        android:text="@string/app_description"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -146,7 +136,7 @@
             android:id="@+id/emi"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:padding="4dp"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#009688" />
@@ -219,9 +209,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="8dp"
+            android:padding="4dp"
             android:textOff="Rented Out"
-            android:textOn="Self-occupied" />
+            android:textOn="Self occupied" />
 
         <TextView
             android:id="@+id/occupation_status_label"
@@ -237,7 +227,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:padding="8dp" />
+            android:padding="4dp" />
 
     </LinearLayout>
 
