@@ -399,6 +399,7 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.value_80c)).setText(house.getAnalysis_80c());
                 ((TextView) findViewById(R.id.value_24b)).setText(house.getAnalysis_24b());
                 ((TextView) findViewById(R.id.value_principal)).setText(house.getAnalysis_principal());
+                ((TextView) findViewById(R.id.download_message)).setText("Schedules have been saved in your downloads folder. Use the Share menu for other sharing options ");
             } else {
                 Toast.makeText(getApplicationContext(), "Handover Date should be earlier than Rent Date", Toast.LENGTH_LONG).show();
             }

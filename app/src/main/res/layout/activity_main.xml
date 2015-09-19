@@ -10,8 +10,10 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/custombordergrey"
+        android:gravity="center"
         android:padding="4dp"
         android:text="@string/app_description"
         android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -25,7 +27,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="8dp"
+            android:padding="4dp"
             android:text="@string/property_name"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -34,12 +36,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="8dp"
-            android:text="wooo"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
     </LinearLayout>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborderbrown"
+        android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -49,7 +55,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:padding="4dp"
             android:text="@string/principal"
             android:textAppearance="?android:attr/textAppearanceSmall" />
@@ -90,55 +96,71 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
-        <EditText
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="4dp"
+                android:text="at"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+
+            <EditText
             android:id="@+id/interest"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+                android:layout_weight="1"
             android:inputType="numberDecimal"
             android:padding="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="4dp"
             android:text="%"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:padding="8dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:padding="4dp"
             android:text="@string/emi_message"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/emi"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:padding="8dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_weight="2"
+            android:padding="4dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#009688" />
 
+
+        </LinearLayout>
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="2dp"
+        android:background="@drawable/customborderbrown"
         android:orientation="horizontal">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="4dp"
             android:text="@string/loan_date"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -146,53 +168,60 @@
             android:id="@+id/loan_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:padding="4dp" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="4dp"
             android:text="@string/handover_date"
+
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <Button
             android:id="@+id/handover_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/rent_message"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <ToggleButton
-
-            android:id="@+id/self_occupied"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textOff="Rented Out"
-            android:textOn="Self-occupied" />
+            android:layout_weight="1"
+            android:padding="4dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/customborderbrown"
+        android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="@string/rent_message"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <ToggleButton
+
+            android:id="@+id/self_occupied"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="8dp"
+            android:textOff="Rented Out"
+            android:textOn="Self-occupied" />
 
         <TextView
             android:id="@+id/occupation_status_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
+            android:padding="4dp"
             android:text="@string/rent_date"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -200,8 +229,11 @@
             android:id="@+id/rent_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:padding="8dp" />
+
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -212,7 +244,8 @@
             android:id="@+id/rent_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="2"
+            android:padding="4dp"
             android:text="@string/starting_rent"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -222,14 +255,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:inputType="numberSigned"
-            android:text="15000"
+            android:padding="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/rate_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="3"
+            android:padding="4dp"
             android:text="@string/expected_rent_increase"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -239,84 +273,70 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:inputType="numberDecimal"
-            android:text="5"
+            android:padding="8dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/percentage_label"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:text="% Annually"
+            android:layout_weight="1"
+            android:padding="4dp"
+            android:text="%"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <Button
-        android:id="@+id/export_schedule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="exportSchedule"
-        android:text="@string/export_schedule" />
+        <Button
+            android:id="@+id/export_schedule"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="exportSchedule"
+            android:padding="8dp"
+            android:text="@string/export_schedule" />
+
+        <TextView
+            android:id="@+id/download_message"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@drawable/customborderteal"
+        android:orientation="vertical">
+
 
         <TextView
-            android:id="@+id/message_80c"
-            android:layout_width="wrap_content"
+            android:id="@+id/value_80c"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/health_80c"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/value_80c"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/message_24b"
-            android:layout_width="wrap_content"
+            android:id="@+id/value_24b"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/health_24b"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/value_24b"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
 
         <TextView
-            android:id="@+id/message_principle"
-            android:layout_width="wrap_content"
+            android:id="@+id/value_principal"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/health_principal"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <TextView
-            android:id="@+id/value_principal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
-
 </LinearLayout>
