@@ -1,7 +1,5 @@
 package com.houseevaluation.kartikn.housevaluation;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
@@ -233,28 +231,26 @@ public class House {
         double current_rent = first_rent;
         int delta_between_loan_and_handover = getID(loan_start_month, loan_start_year, handover_month, handover_year);
         int delta_between_handover_and_rent = getID(handover_month, handover_year, rent_start_month, rent_start_year);
-        Log.d("setRent", "delta_between_handover_and_rent " + delta_between_handover_and_rent);
-        Log.d("setRent", "delta_between_loan_and_handover " + delta_between_loan_and_handover);
         char temp_yrly_status = 'C';
         for (int i = 0; i < months; i++) {
             if (i < delta_between_loan_and_handover) {
                 monthlyLedgers.get(i).setTax_status('C');
                 temp_yrly_status = 'C';
             } else {
-                    if (self_occupied) {
-                        monthlyLedgers.get(i).setTax_status('S');
-                        temp_yrly_status = 'S';
+                if (self_occupied) {
+                    monthlyLedgers.get(i).setTax_status('S');
+                    temp_yrly_status = 'S';
+                } else {
+                    monthlyLedgers.get(i).setTax_status('R');
+                    temp_yrly_status = 'R';
+                    if (i < (delta_between_handover_and_rent + delta_between_loan_and_handover)) {
+                        temp_mthly_rent = 0;
                     } else {
-                        monthlyLedgers.get(i).setTax_status('R');
-                        temp_yrly_status = 'R';
-                        if (i < (delta_between_handover_and_rent + delta_between_loan_and_handover)) {
-                            temp_mthly_rent = 0;
-                        } else {
-                            temp_mthly_rent = current_rent;
-                        }
-
+                        temp_mthly_rent = current_rent;
                     }
+
                 }
+            }
             monthlyLedgers.get(i).setRent_collected(Math.round(temp_mthly_rent));
             temp_yrly_rent += temp_mthly_rent;
             if ((i + financial_month) % 12 == 0) {
@@ -288,7 +284,6 @@ public class House {
             if (tmp_tax_status == 'C') {
                 tmp_tax_saving = 0;
                 construction_interest += i.getYearly_interest();
-                Log.d("calculateTax ", "construction interest " + construction_interest);
                 notation = "Tax exemption on interest payments is not allowed until handover. One-fifth of the total interest can be claimed annually for the first five years after handover";
             }
             if (tmp_tax_status == 'S') {
@@ -304,11 +299,9 @@ public class House {
             if (i.getTax_status() == 'R') {
                 tmp_tax_saving = (i.getYearly_interest() - i.getYearly_rent() * rent_claimable_percentage) * max_tax_rate;
                 notation = "Tax exemption is applicable for the entire interest component this year.";
-                Log.d("calculateTax", "tax " + tmp_tax_saving);
                 if (counter < 5) {
                     tmp_tax_saving += construction_interest / 5 * max_tax_rate;
                     notation = "One-fifth of pre-handover interest can be claimed in this year. Tax exemption is applicable for the entire interest component this year.";
-                    Log.d("calculateTax", " tax with int " + tmp_tax_saving + "counter " + counter);
                     counter++;
                 }
             }

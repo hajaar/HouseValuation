@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ShareActionProvider;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -373,7 +372,6 @@ public class MainActivity extends AppCompatActivity {
                 house.setSelf_occupied(self_occupied);
                 house.setLoan_start_month(loan_month);
                 house.setLoan_start_year(loan_year);
-                Log.d("exportSchedule", "Loan Year " + loan_year);
                 house.setHandover_month(handover_month);
                 house.setHandover_year(handover_year);
                 if (house.isSelf_occupied()) {
