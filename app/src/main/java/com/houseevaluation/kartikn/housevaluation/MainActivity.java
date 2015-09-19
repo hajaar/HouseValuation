@@ -399,7 +399,8 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.value_80c)).setText(house.getAnalysis_80c());
                 ((TextView) findViewById(R.id.value_24b)).setText(house.getAnalysis_24b());
                 ((TextView) findViewById(R.id.value_principal)).setText(house.getAnalysis_principal());
-                ((TextView) findViewById(R.id.download_message)).setText("Schedules have been saved in your downloads folder. Use the Share menu for other sharing options ");
+                ((TextView) findViewById(R.id.download_message)).setText("Schedules are in your downloads folder. Share menu gives more options ");
+                Toast.makeText(getApplicationContext(), "EMI Schedule & Yearly Calculations have been saved to your downloads folder. You can use the share menu for sharing this information", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Handover Date should be earlier than Rent Date", Toast.LENGTH_LONG).show();
             }
@@ -412,7 +413,7 @@ public class MainActivity extends AppCompatActivity {
     public void exportFile(String exportFile, String exportString) {
         try {
             File file = new File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS), "HouseValuation");
+                    Environment.DIRECTORY_DOWNLOADS), "HomeValuation");
             file.mkdirs();
             String filename = file.toString() + "/" + exportFile;
 

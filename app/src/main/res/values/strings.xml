@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">House Valuation</string>
+    <string name="app_name">Home Valuation</string>
 
     <string name="principal">Principal Rs.</string>
     <string name="years">for </string>
@@ -8,7 +8,7 @@
     <string name="interest">Years</string>
     <string name="emi_message">The EMI is </string>
     <string name="export_schedule">Evaluate</string>
-    <string name="property_name">House Name</string>
+    <string name="property_name">Name</string>
     <string name="loan_date"> Loan Date</string>
     <string name="handover_date">Handover Date</string>
     <string name="rent_date">Rent Date</string>
@@ -21,7 +21,7 @@
     <string name="health_80c">80C Health: </string>
     <string name="health_24b">24(b) Health: </string>
     <string name="health_principal">Principal Health: </string>
-    <string name="app_description">View the health of your loan here</string>
+    <string name="app_description">View the health of your loan</string>
 
 
 

@@ -328,11 +328,11 @@ public class House {
         analysis_24b = "Good";
         analysis_principal = "Good";
         if (hasFound80CLimit)
-            analysis_80c = "Your 80c contribution goes  below the limit in " + getYear_80c() + ". Please make other investments to exhaust the limit.";
+            analysis_80c = "Your 80c contribution is underutilized in " + getYear_80c() + ". Please make other investments to use it fully.";
         if (hasFoundZeroTax)
             analysis_24b = "Your 24(b) tax savings go below zero in " + getYear_zero_tax() + ".Please consider pre-payment.";
         if (hasFoundPrincipalGreaterThanInterest)
-            analysis_principal = "The principal component of the EMI exceeds the interest component in " + getMonthName(getMonth_repayment()) + "-" + getYear_repayment() + ". Please consider pre-payment.";
+            analysis_principal = "The EMI principal exceeds the interest starting " + getMonthName(getMonth_repayment()) + "-" + getYear_repayment() + ". Please consider pre-payment.";
     }
 
     private int getID(int start_month, int start_year, int end_month, int end_year) {
