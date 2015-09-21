@@ -320,9 +320,9 @@ public class House {
     }
 
     private void createAnalysis() {
-        analysis_80c = "Good";
-        analysis_24b = "Good";
-        analysis_principal = "Good";
+        analysis_80c = "80C health is good";
+        analysis_24b = "24(b) health is good";
+        analysis_principal = "Principal health is good";
         if (hasFound80CLimit)
             analysis_80c = "Your 80c contribution is underutilized in " + getYear_80c() + ". Please make other investments to use it fully.";
         if (hasFoundZeroTax)

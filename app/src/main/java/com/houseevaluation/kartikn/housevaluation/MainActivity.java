@@ -229,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        exportSchedule(findViewById(R.id.export_schedule));
     }
 
     private void disableAndEnableRent(boolean isChecked) {
@@ -381,8 +382,16 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     house.setRent_start_month(rent_month);
                     house.setRent_start_year(rent_year);
-                    house.setFirst_rent(Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString()));
-                    house.setRent_increase(Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100);
+                    double first_rent = 0;
+                    double rent_increase = 0;
+                    if (((EditText) findViewById(R.id.first_rent)).getText().toString() == "") {
+                        first_rent = Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString());
+                    }
+                    house.setFirst_rent(first_rent);
+                    if (((EditText) findViewById(R.id.rent_increase)).getText().toString() == "") {
+                        rent_increase = Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100;
+                        house.setRent_increase(rent_increase);
+                    }
                 }
                 house.createSchedule();
                 house.setRent();
@@ -398,8 +407,8 @@ public class MainActivity extends AppCompatActivity {
                 ((TextView) findViewById(R.id.value_80c)).setText(house.getAnalysis_80c());
                 ((TextView) findViewById(R.id.value_24b)).setText(house.getAnalysis_24b());
                 ((TextView) findViewById(R.id.value_principal)).setText(house.getAnalysis_principal());
-                ((TextView) findViewById(R.id.download_message)).setText("Schedules are in your downloads folder. Share menu gives more options ");
-                Toast.makeText(getApplicationContext(), "EMI Schedule & Yearly Calculations have been saved to your downloads folder. You can use the share menu for sharing this information", Toast.LENGTH_LONG).show();
+//                ((TextView) findViewById(R.id.download_message)).setText("Schedules are in your downloads folder. Share menu gives more options ");
+//                Toast.makeText(getApplicationContext(), "EMI Schedule & Yearly Calculations have been saved to your downloads folder. You can use the share menu for sharing this information", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Handover Date should be earlier than Rent Date", Toast.LENGTH_LONG).show();
             }
@@ -450,6 +459,14 @@ public class MainActivity extends AppCompatActivity {
             e1.printStackTrace();
             return false;
         }
+    }
+
+    public void viewYearlyLedgerDetails(View view) {
+        String[] yearlyLedgerDataSet = yearlyschedule.split("\n");
+        Intent intent = new Intent(this, YearlyLedgerDetails.class);
+        intent.putExtra("Ledger", yearlyLedgerDataSet);
+        startActivity(intent);
+
     }
 }
 
