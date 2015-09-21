@@ -254,6 +254,7 @@
             android:gravity="right"
             android:inputType="numberSigned"
             android:padding="4dp"
+            android:text="23422"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -273,6 +274,7 @@
             android:gravity="right"
             android:inputType="numberDecimal"
             android:padding="4dp"
+            android:text="5"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -291,21 +293,20 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/export_schedule"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="exportSchedule"
-            android:padding="4dp"
-            android:text="@string/export_schedule" />
-
-        <Button
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="viewYearlyLedgerDetails"
             android:padding="4dp"
             android:text="View Details" />
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="saveToDisk"
+            android:padding="4dp"
+            android:text="SAVE to disk" />
 
 
     </LinearLayout>

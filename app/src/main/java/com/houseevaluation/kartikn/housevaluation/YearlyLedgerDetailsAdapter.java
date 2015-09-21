@@ -4,11 +4,14 @@ package com.houseevaluation.kartikn.housevaluation;
  * Created by kartikn on 21-09-2015.
  */
 
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 
 public class YearlyLedgerDetailsAdapter extends RecyclerView.Adapter<YearlyLedgerDetailsAdapter.ViewHolder> {
     private String[] mDataset;
@@ -27,6 +30,7 @@ public class YearlyLedgerDetailsAdapter extends RecyclerView.Adapter<YearlyLedge
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recyclerview_yearly_ledger_details, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
+
         return vh;
     }
 
@@ -38,6 +42,11 @@ public class YearlyLedgerDetailsAdapter extends RecyclerView.Adapter<YearlyLedge
         final String yearlyLedger = mDataset[position].trim();
         String[] temp = mDataset[position].split(",");
         if (temp.length > 1) {
+            if (position % 2 == 0) {
+                holder.cvHolder.setCardBackgroundColor(Color.parseColor("#EFEBE9"));
+            } else {
+                holder.cvHolder.setCardBackgroundColor(Color.parseColor("#E0F2F1"));
+            }
             holder.txtYear.setText(temp[1].trim());
             holder.txtPrincipal.setText(temp[2].trim());
             holder.txtInterest.setText(temp[3].trim());
@@ -46,9 +55,8 @@ public class YearlyLedgerDetailsAdapter extends RecyclerView.Adapter<YearlyLedge
             holder.txtTax.setText(temp[6].trim());
             holder.txtOutflow.setText(temp[7].trim());
             holder.txtNotation.setText(temp[8].trim());
+
         }
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -62,7 +70,6 @@ public class YearlyLedgerDetailsAdapter extends RecyclerView.Adapter<YearlyLedge
     // you provide access to all the views for a data item in a view holder
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView txtID;
         public TextView txtYear;
         public TextView txtPrincipal;
         public TextView txtInterest;
@@ -71,9 +78,11 @@ public class YearlyLedgerDetailsAdapter extends RecyclerView.Adapter<YearlyLedge
         public TextView txtOutflow;
         public TextView txtRentalStatus;
         public TextView txtNotation;
+        public CardView cvHolder;
 
         public ViewHolder(View v) {
             super(v);
+            cvHolder = (CardView) v.findViewById(R.id.cvholder);
             txtYear = (TextView) v.findViewById(R.id.yearly_ledger_year);
             txtPrincipal = (TextView) v.findViewById(R.id.yearly_ledger_principal);
             txtInterest = (TextView) v.findViewById(R.id.yearly_ledger_interest);
@@ -82,10 +91,6 @@ public class YearlyLedgerDetailsAdapter extends RecyclerView.Adapter<YearlyLedge
             txtOutflow = (TextView) v.findViewById(R.id.yearly_ledger_outflow);
             txtRentalStatus = (TextView) v.findViewById(R.id.yearly_ledger_status);
             txtNotation = (TextView) v.findViewById(R.id.yearly_ledger_notation);
-
-
         }
     }
-
-
 }

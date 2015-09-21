@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putInt("loan_month", loan_month);
             editor.putInt("loan_year", loan_year);
             editor.commit();
+            exportSchedule();
         }
         // else
         //}
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putInt("handover_month", handover_month);
             editor.putInt("handover_year", handover_year);
             editor.commit();
+            exportSchedule();
         }
     };
     private DatePickerDialog.OnDateSetListener dpickerListener3
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putInt("rent_month", rent_month);
             editor.putInt("rent_year", rent_year);
             editor.commit();
+            exportSchedule();
         }
     };
 
@@ -134,7 +137,8 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
                 editor.putString("property_name", ((EditText) findViewById(R.id.property_name)).getText().toString());
-                editor.commit();
+                editor.commit()
+                ;
             }
         });
         ((EditText) findViewById(R.id.principal)).addTextChangedListener(new TextWatcher() {
@@ -150,7 +154,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
                 calculateEMI();
+                exportSchedule();
             }
         });
         ((EditText) findViewById(R.id.years)).addTextChangedListener(new TextWatcher() {
@@ -167,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 calculateEMI();
+                exportSchedule();
             }
         });
         ((EditText) findViewById(R.id.interest)).addTextChangedListener(new TextWatcher() {
@@ -183,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 calculateEMI();
+                exportSchedule();
             }
         });
         ((EditText) findViewById(R.id.first_rent)).addTextChangedListener(new TextWatcher() {
@@ -201,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
                 editor.putString("rent", ((EditText) findViewById(R.id.first_rent)).getText().toString());
                 editor.commit();
+                exportSchedule();
             }
         });
         ((EditText) findViewById(R.id.rent_increase)).addTextChangedListener(new TextWatcher() {
@@ -219,6 +228,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
                 editor.putString("annual_increase", ((EditText) findViewById(R.id.rent_increase)).getText().toString());
                 editor.commit();
+                exportSchedule();
             }
         });
         ToggleButton toggleButton = (ToggleButton) findViewById(R.id.self_occupied);
@@ -226,10 +236,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 disableAndEnableRent(isChecked);
+                exportSchedule();
 
             }
         });
-        exportSchedule(findViewById(R.id.export_schedule));
+        exportSchedule();
     }
 
     private void disableAndEnableRent(boolean isChecked) {
@@ -340,10 +351,9 @@ public class MainActivity extends AppCompatActivity {
     private Intent createShareForecastIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        shareIntent.setType("text/csv");
+        shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "House Valuation Files");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, "PFA yearly and monthly schedules");
-        shareIntent.putExtra(Intent.EXTRA_STREAM, files);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, yearlyschedule + monthlyschedule);
         return shareIntent;
     }
 
@@ -363,7 +373,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void exportSchedule(View v) {
+    public void exportSchedule() {
         String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
         boolean self_occupied = ((ToggleButton) findViewById(R.id.self_occupied)).isChecked();
         SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
@@ -384,31 +394,25 @@ public class MainActivity extends AppCompatActivity {
                     house.setRent_start_year(rent_year);
                     double first_rent = 0;
                     double rent_increase = 0;
-                    if (((EditText) findViewById(R.id.first_rent)).getText().toString() == "") {
-                        first_rent = Double.valueOf(((EditText) findViewById(R.id.first_rent)).getText().toString());
-                    }
+                    String tmp = "0" + ((EditText) findViewById(R.id.first_rent)).getText().toString().trim();
+                    first_rent = Double.valueOf(tmp);
                     house.setFirst_rent(first_rent);
-                    if (((EditText) findViewById(R.id.rent_increase)).getText().toString() == "") {
-                        rent_increase = Double.valueOf(((EditText) findViewById(R.id.rent_increase)).getText().toString()) / 100;
-                        house.setRent_increase(rent_increase);
-                    }
+                    tmp = "0" + ((EditText) findViewById(R.id.rent_increase)).getText().toString().trim();
+                    rent_increase = Double.valueOf(tmp) / 100;
+                    house.setFirst_rent(first_rent);
+                    house.setRent_increase(rent_increase);
                 }
                 house.createSchedule();
                 house.setRent();
-                Calendar cal = Calendar.getInstance();
-                DateFormat date = new SimpleDateFormat("MMddHHmmss");
                 monthlyschedule = house.getSchedule();
                 yearlyschedule = house.getYearly_schedule();
-                exportFile(propertyName + "_monthly_schedule_" + date.format(cal.getTime()) + ".csv", monthlyschedule);
-                exportFile(propertyName + "_yearly_schedule_" + date.format(cal.getTime()) + ".csv", yearlyschedule);
+
                 if (mshareActionProvider != null) {
                     mshareActionProvider.setShareIntent(createShareForecastIntent());
                 }
                 ((TextView) findViewById(R.id.value_80c)).setText(house.getAnalysis_80c());
                 ((TextView) findViewById(R.id.value_24b)).setText(house.getAnalysis_24b());
                 ((TextView) findViewById(R.id.value_principal)).setText(house.getAnalysis_principal());
-//                ((TextView) findViewById(R.id.download_message)).setText("Schedules are in your downloads folder. Share menu gives more options ");
-//                Toast.makeText(getApplicationContext(), "EMI Schedule & Yearly Calculations have been saved to your downloads folder. You can use the share menu for sharing this information", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(getApplicationContext(), "Handover Date should be earlier than Rent Date", Toast.LENGTH_LONG).show();
             }
@@ -431,8 +435,6 @@ public class MainActivity extends AppCompatActivity {
             fw.close();
             MediaScannerConnection.scanFile(this, new String[]{filename}, null, null);
             files.add(Uri.parse(filename));
-
-
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -466,6 +468,18 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, YearlyLedgerDetails.class);
         intent.putExtra("Ledger", yearlyLedgerDataSet);
         startActivity(intent);
+
+    }
+
+    public void saveToDisk(View view) {
+        monthlyschedule = house.getSchedule();
+        yearlyschedule = house.getYearly_schedule();
+        String propertyName = ((TextView) findViewById(R.id.property_name)).getText().toString();
+        Calendar cal = Calendar.getInstance();
+        DateFormat date = new SimpleDateFormat("MMddHHmmss");
+        exportFile(propertyName + "_monthly_schedule_" + date.format(cal.getTime()) + ".csv", monthlyschedule);
+        exportFile(propertyName + "_yearly_schedule_" + date.format(cal.getTime()) + ".csv", yearlyschedule);
+        Toast.makeText(getApplicationContext(), "EMI Schedule & Yearly Calculations have been saved to your downloads folder. You can use the share menu for sharing this information", Toast.LENGTH_LONG).show();
 
     }
 }

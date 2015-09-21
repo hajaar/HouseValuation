@@ -24,6 +24,11 @@
     <string name="app_description">View the health of your loan</string>
     <string name="updates">You can calculate the EMI, generate EMI schedules, run scenarios with rental options and generate yearly tax savings under section 24(b) along with your total cash outflow</string>
     <string name="eula">Hello. Thank you for using my app. This is supposed to be an EULA. So here goes... \n I have created this app based on my knowledge of the current indian tax laws. While this knowledge is good, I am not an expert. I have tried to be as accurate as possible but there are rounding off errors, bugs and a not too comprehensive implementation of tax laws. So please use this app as a guidance and do not stake your life savings on it - I will not be responsible for any loss in any form. :-D</string>
+    <string name="title_activity_yearly_schedule">YearlySchedule</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_yearly_details">YearlyDetails</string>
+    <string name="title_activity_yearly_ledger_details">YearlyLedgerDetails</string>
 
 
 </resources>
