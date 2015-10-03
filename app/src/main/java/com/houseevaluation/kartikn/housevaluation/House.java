@@ -179,10 +179,13 @@ public class House {
         return schedule;
     }
 
+    public String getYearly_scheduleWithHeaders() {
+        return "id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n" + yearly_schedule;
+    }
+
     public String getYearly_schedule() {
         return yearly_schedule;
     }
-
     public void createSchedule() {
         double op_bal = principal;
         double temp_int;
@@ -363,7 +366,7 @@ public class House {
     }
 
     private void exportYearlySchedule() {
-        yearly_schedule = "id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n";
+        yearly_schedule = "";
         DecimalFormat df = new DecimalFormat("0", DecimalFormatSymbols.getInstance(Locale.ENGLISH));
         df.setMaximumIntegerDigits(20);
         for (YearlyLedger i : yearlyLedgers) {
@@ -378,6 +381,7 @@ public class House {
                     i.getNotation() + "\n";
         }
     }
+
 
     private String getFullTaxStatusName(char c) {
         switch (c) {

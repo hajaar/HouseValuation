@@ -353,7 +353,7 @@ public class MainActivity extends AppCompatActivity {
         shareIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, "House Valuation Files");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, yearlyschedule + monthlyschedule);
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n" + yearlyschedule + monthlyschedule);
         return shareIntent;
     }
 
@@ -430,7 +430,7 @@ public class MainActivity extends AppCompatActivity {
             String filename = file.toString() + "/" + exportFile;
 
             FileWriter fw = new FileWriter(filename);
-            fw.write(exportString);
+            fw.write("id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n" + exportString);
             fw.flush();
             fw.close();
             MediaScannerConnection.scanFile(this, new String[]{filename}, null, null);
