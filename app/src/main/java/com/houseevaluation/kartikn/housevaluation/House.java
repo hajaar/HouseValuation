@@ -5,6 +5,9 @@ import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import static android.util.Log.d;
+
+
 /**
  * Created by kartikn on 13-09-2015.
  */
@@ -21,6 +24,11 @@ public class House {
     private double monthly_interest = 0;
     private double months = 0;
     private double emi = 0;
+    private int total_outflow = 0;
+    private int total_tax_saving = 0;
+    private int total_rent = 0;
+    private int total_principal = 0;
+    private int total_interest = 0;
     private String schedule;
     private String yearly_schedule;
     private int loan_start_month;
@@ -42,13 +50,53 @@ public class House {
     private String analysis_80c;
     private String analysis_24b;
     private String analysis_principal;
-
+    private String analysis_total;
     public House(double principal, double monthly_interest, double months) {
         this.principal = principal;
         this.monthly_interest = monthly_interest;
         this.months = months;
         this.self_occupied = true;
         setEmi();
+    }
+
+    public int getTotal_outflow() {
+        return total_outflow;
+    }
+
+    public void setTotal_outflow(int total_outflow) {
+        this.total_outflow = total_outflow;
+    }
+
+    public int getTotal_tax_saving() {
+        return total_tax_saving;
+    }
+
+    public void setTotal_tax_saving(int total_tax_saving) {
+        this.total_tax_saving = total_tax_saving;
+    }
+
+    public int getTotal_rent() {
+        return total_rent;
+    }
+
+    public void setTotal_rent(int total_rent) {
+        this.total_rent = total_rent;
+    }
+
+    public int getTotal_principal() {
+        return total_principal;
+    }
+
+    public void setTotal_principal(int total_principal) {
+        this.total_principal = total_principal;
+    }
+
+    public int getTotal_interest() {
+        return total_interest;
+    }
+
+    public void setTotal_interest(int total_interest) {
+        this.total_interest = total_interest;
     }
 
     public String getAnalysis_principal() {
@@ -281,8 +329,14 @@ public class House {
         double construction_interest = 0;
         char tmp_tax_status;
         int counter = 0;
+
         String notation = "";
         year_zero_tax = "";
+        total_outflow = 0;
+        total_tax_saving = 0;
+        total_rent = 0;
+        total_principal = 0;
+        total_interest = 0;
 
 
         for (YearlyLedger i : yearlyLedgers) {
@@ -317,7 +371,13 @@ public class House {
             }
             i.setTax_saving(Math.round(tmp_tax_saving));
             i.setTotal_outflow();
+            d("TO", "" + i.getTotal_outflow());
             i.setNotation(notation);
+            total_outflow += i.getTotal_outflow();
+            total_rent += i.getYearly_rent();
+            total_tax_saving += i.getTax_saving();
+            total_principal += i.getYearly_principal();
+            total_interest += i.getYearly_interest();
         }
         createAnalysis();
     }
@@ -326,6 +386,8 @@ public class House {
         analysis_80c = "80C health is good";
         analysis_24b = "24(b) health is good";
         analysis_principal = "Principal health is good";
+
+
         if (hasFound80CLimit)
             analysis_80c = "Your 80c contribution is underutilized in " + getYear_80c() + ". Please make other investments to use it fully.";
         if (hasFoundZeroTax)

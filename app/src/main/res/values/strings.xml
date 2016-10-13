@@ -8,7 +8,7 @@
     <string name="interest">Years</string>
     <string name="emi_message">The EMI is </string>
     <string name="export_schedule">Evaluate</string>
-    <string name="property_name">Name</string>
+    <string name="property_name">The Name of the property is </string>
     <string name="loan_date"> Loan Date</string>
     <string name="handover_date">Handover Date</string>
     <string name="rent_date">Rent Date</string>
@@ -21,6 +21,8 @@
     <string name="health_80c">80C Health: </string>
     <string name="health_24b">24(b) Health: </string>
     <string name="health_principal">Principal Health: </string>
+    <string name="remarks">Remarks</string>
+
     <string name="app_description">View the health of your loan</string>
     <string name="updates">You can calculate the EMI, generate EMI schedules, run scenarios with rental options and generate yearly tax savings under section 24(b) along with your total cash outflow</string>
     <string name="eula">Hello. Thank you for using my app. This is supposed to be an EULA. So here goes... \n I have created this app based on my knowledge of the current indian tax laws. While this knowledge is good, I am not an expert. I have tried to be as accurate as possible but there are rounding off errors, bugs and a not too comprehensive implementation of tax laws. So please use this app as a guidance and do not stake your life savings on it - I will not be responsible for any loss in any form. :-D</string>
@@ -30,5 +32,10 @@
     <string name="title_activity_yearly_details">Yearly Details</string>
     <string name="title_activity_yearly_ledger_details">Yearly Ledger Details</string>
 
-
+    <string name="total_tax_saving">+ Tax Saving</string>
+    <string name="total_rent">  Rent</string>
+    <string name="total_principal">- Principal</string>
+    <string name="total_interest">- Interest</string>
+    <string name="total_outflow">= Outflow</string>
+    <string name="overall">Overall</string>
 </resources>

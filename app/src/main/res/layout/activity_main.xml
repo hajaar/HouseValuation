@@ -291,37 +291,101 @@
     </LinearLayout>
     </LinearLayout>
 
-
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/customborderteal"
-        android:orientation="vertical">
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/customborderteal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/overall"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/total_tax_saving"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_tax_saving"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:id="@+id/total_rent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_rent"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:id="@+id/total_principal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_principal"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:id="@+id/total_interest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_interest"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:id="@+id/total_outflow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/total_outflow"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/customborderteal"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/remarks"
+                android:textAlignment="center"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/value_80c"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/health_80c"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 
-        <TextView
-            android:id="@+id/value_80c"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/health_80c"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/value_24b"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/health_24b"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
 
-        <TextView
-            android:id="@+id/value_24b"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/health_24b"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            <TextView
+                android:id="@+id/value_principal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/health_principal"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-
-        <TextView
-            android:id="@+id/value_principal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/health_principal"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout

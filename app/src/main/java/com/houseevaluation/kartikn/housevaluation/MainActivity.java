@@ -410,6 +410,10 @@ public class MainActivity extends AppCompatActivity {
                 if (mshareActionProvider != null) {
                     mshareActionProvider.setShareIntent(createShareForecastIntent());
                 }
+                ((TextView) findViewById(R.id.total_rent)).setText("+ Rent: " + house.getTotal_rent());
+                ((TextView) findViewById(R.id.total_principal)).setText("- Principal: " + house.getTotal_principal());
+                ((TextView) findViewById(R.id.total_interest)).setText("- Interest: " + house.getTotal_interest());
+                ((TextView) findViewById(R.id.total_outflow)).setText("= Outflow: " + house.getTotal_outflow());
                 ((TextView) findViewById(R.id.value_80c)).setText(house.getAnalysis_80c());
                 ((TextView) findViewById(R.id.value_24b)).setText(house.getAnalysis_24b());
                 ((TextView) findViewById(R.id.value_principal)).setText(house.getAnalysis_principal());
