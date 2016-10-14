@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
             editor.putString("interest", ((TextView) findViewById(R.id.interest)).getText().toString());
             editor.commit();
         }
-        ((TextView) findViewById(R.id.emi)).setText(" Rs." + emi);
+        ((TextView) findViewById(R.id.emi)).setText("" + (int) emi);
 
     }
 
@@ -410,10 +410,11 @@ public class MainActivity extends AppCompatActivity {
                 if (mshareActionProvider != null) {
                     mshareActionProvider.setShareIntent(createShareForecastIntent());
                 }
-                ((TextView) findViewById(R.id.total_rent)).setText("+ Rent: " + house.getTotal_rent());
-                ((TextView) findViewById(R.id.total_principal)).setText("- Principal: " + house.getTotal_principal());
-                ((TextView) findViewById(R.id.total_interest)).setText("- Interest: " + house.getTotal_interest());
-                ((TextView) findViewById(R.id.total_outflow)).setText("= Outflow: " + house.getTotal_outflow());
+                ((TextView) findViewById(R.id.total_tax_saving)).setText(" " + house.getTotal_tax_saving());
+                ((TextView) findViewById(R.id.total_rent)).setText("+ " + house.getTotal_rent());
+                ((TextView) findViewById(R.id.total_principal)).setText("- " + house.getTotal_principal());
+                ((TextView) findViewById(R.id.total_interest)).setText("- " + house.getTotal_interest());
+                ((TextView) findViewById(R.id.total_outflow)).setText("= " + house.getTotal_outflow());
                 ((TextView) findViewById(R.id.value_80c)).setText(house.getAnalysis_80c());
                 ((TextView) findViewById(R.id.value_24b)).setText(house.getAnalysis_24b());
                 ((TextView) findViewById(R.id.value_principal)).setText(house.getAnalysis_principal());
@@ -429,10 +430,9 @@ public class MainActivity extends AppCompatActivity {
     public void exportFile(String exportFile, String exportString) {
         try {
             File file = new File(Environment.getExternalStoragePublicDirectory(
-                    Environment.DIRECTORY_DOWNLOADS), "HomeValuation");
-            file.mkdirs();
+                    Environment.DIRECTORY_DOCUMENTS), "HomeValuation");
+            file.mkdir();
             String filename = file.toString() + "/" + exportFile;
-
             FileWriter fw = new FileWriter(filename);
             fw.write("id, Fin. Year,  Principal , Interest ,Tax Status, Rent , 24(b) Tax Saving, Total Outflow, Notation \n" + exportString);
             fw.flush();

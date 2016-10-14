@@ -1,353 +1,414 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingBottom="8dp"
-    android:paddingLeft="8dp"
-    android:paddingRight="8dp"
-    android:paddingTop="8dp"
-    tools:context=".MainActivity">
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:paddingBottom="4dp"
+              android:paddingLeft="4dp"
+              android:paddingRight="4dp"
+              android:paddingTop="4dp"
+              tools:context=".MainActivity">
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="horizontal">
-
+        android:background="@drawable/customborderbrown"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/text_property_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="4dp"
+            android:layout_alignParentStart="true"
+            android:padding="2dp"
             android:text="@string/property_name"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <EditText
             android:id="@+id/property_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="4dp"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:layout_alignBottom="@+id/text_property_name"
+            android:layout_alignTop="@+id/text_property_name"
+            android:layout_toRightOf="@+id/text_property_name"
+            android:padding="2dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/customborderbrown"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
+        <Button
+            android:id="@+id/loan_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/principal"
+            android:layout_toEndOf="@+id/text_loan_date"
+            android:padding="2dp"/>
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/text_principal"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:padding="4dp"
+            android:layout_below="@+id/text_property_name"
+            android:padding="2dp"
             android:text="@string/principal"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/principal"
-            android:layout_width="0dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_alignBottom="@+id/text_principal"
+            android:layout_alignTop="@+id/text_principal"
+            android:layout_toRightOf="@+id/text_principal"
             android:gravity="right"
             android:inputType="number"
-            android:padding="4dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/text_for"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
+            android:layout_alignBottom="@+id/text_principal"
+            android:layout_alignTop="@+id/text_principal"
+            android:layout_toRightOf="@+id/principal"
+            android:padding="2dp"
             android:text="@string/years"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <EditText
             android:id="@+id/years"
-            android:layout_width="0dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBottom="@+id/text_principal"
+            android:layout_alignTop="@+id/text_principal"
+            android:layout_toRightOf="@+id/text_for"
             android:gravity="right"
             android:inputType="number"
-            android:padding="4dp"
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/text_years"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:padding="4dp"
+            android:layout_alignBottom="@+id/text_principal"
+            android:layout_alignTop="@+id/text_principal"
+            android:layout_toRightOf="@+id/years"
+            android:paddingBottom="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp"
             android:text="@string/interest"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
-    </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="4dp"
-                android:text="at"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-
-            <EditText
+        <EditText
             android:id="@+id/interest"
-            android:layout_width="0dp"
+            android:layout_width="50dp"
             android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="right"
+
+            android:layout_alignBottom="@+id/text_principal"
+            android:layout_alignTop="@+id/text_principal"
+            android:layout_toRightOf="@+id/text_years"
+            android:gravity="right"
             android:inputType="numberDecimal"
-                android:padding="4dp"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:paddingBottom="2dp"
+            android:paddingTop="2dp"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/text_interest"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
+            android:layout_alignBottom="@id/interest"
+            android:layout_toRightOf="@+id/interest"
+            android:paddingBottom="2dp"
+            android:paddingRight="2dp"
+            android:paddingTop="2dp"
             android:text="%"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
 
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:padding="4dp"
-            android:text="@string/emi_message"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
 
         <TextView
-            android:id="@+id/emi"
-            android:layout_width="0dp"
+            android:id="@+id/text_loan_date"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:padding="4dp"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textColor="#009688" />
-
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/customborderbrown"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
+            android:layout_alignBottom="@+id/loan_button"
+            android:layout_alignParentLeft="true"
+            android:layout_alignTop="@id/loan_button"
+            android:gravity="center"
+            android:padding="2dp"
             android:text="@string/loan_date"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <Button
-            android:id="@+id/loan_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp" />
-
         <TextView
-            android:layout_width="0dp"
+            android:id="@+id/handover_date"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
+            android:layout_alignBottom="@id/loan_button"
+            android:layout_alignTop="@+id/loan_button"
+            android:layout_toRightOf="@+id/loan_button"
+            android:gravity="center"
+            android:padding="2dp"
             android:text="@string/handover_date"
-
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
-        <Button
-            android:id="@+id/handover_button"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:background="@drawable/customborderbrown"
-        android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
-            android:text="@string/rent_message"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ToggleButton
 
             android:id="@+id/self_occupied"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
+            android:layout_alignRight="@+id/loan_button"
+            android:layout_below="@+id/loan_button"
+            android:layout_toRightOf="@+id/rent_message"
+            android:padding="2dp"
             android:textOff="Rented Out"
             android:textOn="Self occupied" />
 
+
         <TextView
             android:id="@+id/occupation_status_label"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
+            android:layout_alignBottom="@+id/self_occupied"
+            android:layout_alignRight="@+id/handover_date"
+            android:layout_alignTop="@+id/self_occupied"
+            android:layout_toRightOf="@+id/self_occupied"
+            android:gravity="center_vertical"
+            android:padding="2dp"
             android:text="@string/rent_date"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <Button
             android:id="@+id/rent_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp" />
+            android:layout_alignBottom="@+id/self_occupied"
+            android:layout_alignRight="@+id/handover_button"
+            android:layout_alignTop="@+id/self_occupied"
+            android:layout_toRightOf="@+id/occupation_status_label"
+            android:padding="2dp"/>
 
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/rent_label"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:padding="4dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/rent_message"
+            android:layout_below="@+id/rent_button"
+            android:padding="2dp"
             android:text="@string/starting_rent"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <EditText
             android:id="@+id/first_rent"
-            android:layout_width="0dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_alignBottom="@+id/rent_label"
+            android:layout_alignLeft="@+id/self_occupied"
+            android:layout_alignRight="@+id/self_occupied"
+            android:layout_alignTop="@+id/rent_label"
+            android:layout_toRightOf="@+id/rent_label"
             android:gravity="right"
             android:inputType="numberSigned"
-            android:padding="4dp"
-            android:text="23422"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:padding="2dp"
+            android:text="0"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/rate_label"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:padding="4dp"
+            android:layout_alignLeft="@+id/occupation_status_label"
+            android:layout_alignTop="@+id/rent_label"
+            android:layout_toRightOf="@+id/first_rent"
+            android:gravity="center_vertical"
+
+            android:padding="2dp"
+
             android:text="@string/expected_rent_increase"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
         <EditText
             android:id="@+id/rent_increase"
-            android:layout_width="0dp"
+            android:layout_width="30dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_alignBottom="@+id/rate_label"
+            android:layout_alignTop="@+id/rate_label"
+            android:layout_toRightOf="@+id/rate_label"
             android:gravity="right"
             android:inputType="numberDecimal"
-            android:padding="4dp"
+            android:padding="2dp"
             android:text="5"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <TextView
             android:id="@+id/percentage_label"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:padding="4dp"
+            android:layout_alignBottom="@+id/rate_label"
+            android:layout_alignTop="@+id/rate_label"
+            android:layout_toRightOf="@+id/rent_increase"
+            android:padding="2dp"
             android:text="%"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-    </LinearLayout>
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/rent_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignRight="@+id/text_loan_date"
+            android:layout_below="@+id/text_loan_date"
+            android:gravity="center_vertical"
+            android:padding="2dp"
+            android:text="@string/rent_message"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+        <Button
+            android:id="@+id/handover_button"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/handover_date"
+            android:layout_alignBottom="@+id/handover_date"
+            android:layout_toEndOf="@+id/handover_date"
+            android:padding="2dp"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/customborderteal"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/overall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="@string/overall"
                 android:textAlignment="center"
                 android:textStyle="bold"
                 />
 
             <TextView
+                android:id="@+id/text_total_tax_saving"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/overall"
+                android:text="@string/total_tax_saving"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
                 android:id="@+id/total_tax_saving"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text_total_tax_saving"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/text_total_tax_saving"
+                android:gravity="right"
                 android:text="@string/total_tax_saving"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:id="@+id/text_total_rent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/text_total_tax_saving"
+                android:layout_below="@+id/text_total_tax_saving"
+                android:text="@string/total_rent"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <TextView
                 android:id="@+id/total_rent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text_total_rent"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/text_total_rent"
+                android:gravity="right"
                 android:text="@string/total_rent"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+            <TextView
+                android:id="@+id/text_total_principal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/text_total_tax_saving"
+                android:layout_below="@+id/text_total_rent"
+                android:text="@string/total_principal"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <TextView
                 android:id="@+id/total_principal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text_total_principal"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/text_total_principal"
+                android:gravity="right"
                 android:text="@string/total_principal"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <TextView
+                android:id="@+id/text_total_interest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/text_total_tax_saving"
+                android:layout_below="@+id/text_total_principal"
+                android:text="@string/total_interest"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <TextView
                 android:id="@+id/total_interest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text_total_interest"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/text_total_interest"
+                android:gravity="right"
                 android:text="@string/total_interest"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+            <TextView
+                android:id="@+id/text_total_outflow"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/text_total_tax_saving"
+                android:layout_below="@+id/text_total_interest"
+                android:text="@string/total_outflow"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
 
             <TextView
                 android:id="@+id/total_outflow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/text_total_outflow"
+                android:layout_alignParentRight="true"
+                android:layout_toRightOf="@+id/text_total_outflow"
+                android:gravity="right"
                 android:text="@string/total_outflow"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-        </LinearLayout>
+        </RelativeLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -355,37 +416,82 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/misc"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/remarks"
+                android:layout_alignParentStart="true"
+                android:gravity="center"
+                android:text="Misc."
                 android:textAlignment="center"
                 android:textStyle="bold"
                 />
-
             <TextView
-                android:id="@+id/value_80c"
-                android:layout_width="match_parent"
+                android:id="@+id/emi_message"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/health_80c"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/misc"
+                android:padding="2dp"
+                android:text="@string/emi_message"
+
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
 
-
             <TextView
-                android:id="@+id/value_24b"
-                android:layout_width="match_parent"
+                android:id="@+id/emi"
+                android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="@string/health_24b"
-                android:textAppearance="?android:attr/textAppearanceSmall"/>
+                android:layout_alignBottom="@+id/emi_message"
+                android:layout_toRightOf="@+id/emi_message"
+                android:paddingBottom="2dp"
+                android:paddingRight="2dp"
+                android:paddingTop="2dp"
+
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                />
 
 
-            <TextView
-                android:id="@+id/value_principal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/health_principal"
-                android:textAppearance="?android:attr/textAppearanceSmall"/>
+        </RelativeLayout>
+    </LinearLayout>
 
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/customborderteal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/remarks"
+            android:textAlignment="center"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/value_80c"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/health_80c"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+        <TextView
+            android:id="@+id/value_24b"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/health_24b"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+        <TextView
+            android:id="@+id/value_principal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/health_principal"
+            android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
     </LinearLayout>
 
     <LinearLayout
@@ -397,7 +503,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="viewYearlyLedgerDetails"
-            android:padding="4dp"
+            android:padding="2dp"
             android:text="View Details" />
 
         <Button
@@ -405,7 +511,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="saveToDisk"
-            android:padding="4dp"
+            android:padding="2dp"
             android:text="SAVE to disk" />
 
 
